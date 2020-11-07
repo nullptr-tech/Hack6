@@ -437,7 +437,7 @@ function init() {
 					specular: 0xFF0000,
 					flatShading: true
 				});
-				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
+				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
 			
 				scene.add(wall);
 
