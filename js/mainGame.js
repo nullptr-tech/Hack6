@@ -418,9 +418,9 @@ function init() {
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 				];*/
 
-				const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+				//const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 
-				const tMaterial = new THREE.MeshBasicMaterial(testBoxMaterials);
+				const tMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
 				const testCube = new THREE.Mesh( testBox, tMaterial);
 
 				scene.add(testCube);
