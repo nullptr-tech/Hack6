@@ -429,6 +429,7 @@ function init() {
 				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
 				wallOneBound.update(wall);
 				scene.add(wallOneBound);
+
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
 					new THREE.Vector3(0, 1, 0),
@@ -448,6 +449,13 @@ function init() {
 				});
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
 				floor.translateY(-70);
+
+				const size = 200;
+				const divisions = 25;
+
+				const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
+				scene.add( gridHelper );
+
 				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
