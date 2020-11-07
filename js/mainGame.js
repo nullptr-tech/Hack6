@@ -31,10 +31,10 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0xffffff,
-	floorColour2 = 0xffffff,
-	floorColour3 = 0xffffff,
-	wallColour = 0x000;
+var floorColour = 0x615d5a,
+	floorColour2 = 0x803e00,
+	floorColour3 = 0x000000,
+	wallColour = 0xd2691e;
 var fogColour = 0x800000,
     fogColour2 = 0xe76201;
 var backgroundColour = 0x660000;
@@ -89,7 +89,21 @@ function switchLevel(icey) {
 		scene.fog = new THREE.Fog(0x485346, 0, 200);
 		fogColour2 = 0x32e02c;
 	}
-	// Generate new lava geometry object
+	// Generate new floor geometry object
+	floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
+	floorGeometry.rotateX(-Math.PI / 2);
+	for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
+		var vertex = floorGeometry.vertices[i];
+		vertex.x += Math.random() * 15 - 10;
+		vertex.y += Math.random() * 5;
+		vertex.z += Math.random() * 15 - 10;
+	}
+	for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
+		var face4 = floorGeometry.faces[i];
+		face4.vertexColors[0] = new THREE.Color(floorColour);
+		face4.vertexColors[1] = new THREE.Color(floorColour2);
+		face4.vertexColors[2] = new THREE.Color(floorColour3);
+	}
 	var floorMaterial = new THREE.MeshBasicMaterial({
 		vertexColors: THREE.VertexColors
 	});
@@ -119,7 +133,7 @@ quitbtn.addEventListener("click", switchTrack);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 mainMenuMusic = new Audio();
-mainMenuMusic.src = "audio/normalMusic.mp3";
+mainMenuMusic.src = "audio/menuMusic.mp3";
 mainMenuMusic.loop = true;
 mainMenuMusic.play();
 
@@ -157,7 +171,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/vapourWaveMusic.mp3";
+		gameAudio.src = "audio/gameplayMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
@@ -404,6 +418,21 @@ function init() {
 					vertex.x += Math.random() * 30 + 70;
 					vertex.y += Math.random() * 3 + 5000;
 					vertex.z += Math.random() * 30 - 5;
+				}
+				// Creates floor geometry
+				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
+				floorGeometry.rotateX(-Math.PI / 2);
+				for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
+					var vertex = floorGeometry.vertices[i];
+					vertex.x += Math.random() * 15 - 10;
+					vertex.y += Math.random() * 5;
+					vertex.z += Math.random() * 15 - 10;
+				}
+				for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
+					var face4 = floorGeometry.faces[i];
+					face4.vertexColors[0] = new THREE.Color(floorColour);
+					face4.vertexColors[1] = new THREE.Color(floorColour2);
+					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
@@ -688,12 +717,19 @@ function animate() {
 			}
 		}
 		if (onFloor) {
+			while (playDeath == true){
+			//	pauseGameplay();
+				deathAudio = new Audio();
+				deathAudio.src = "audio/deathEffect.mp3";
+				deathAudio.play();
+				playDeath = false;
+			}
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
 			document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
 		    displayScore();
 		}
-	
+
 		controls.getObject().translateX(velocity.x * delta);
 		controls.getObject().translateY(velocity.y * delta);
 		controls.getObject().translateZ(velocity.z * delta);
