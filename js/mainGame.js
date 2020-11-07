@@ -389,13 +389,12 @@ function init() {
 					vertex.z += 30 + 70;
 				}
 
-				wallGeometry2 = new THREE.PlaneGeometry(100, 100);
-				wallGeometry2.rotateY(-Math.PI/2);
-				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
-					var vertex = wallGeometry.vertices[i];
+				wallGeometry2 = new THREE.PlaneGeometry(300, 10000, 360, 160);
+				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
+					var vertex = wallGeometry2.vertices[i];
 					vertex.x += 30 - 5;
 					vertex.y += 3 + 40;
-					vertex.z += 30 + 70;
+					vertex.z += 30 - 80;
 				}
 
 				// Creates floor geometry
