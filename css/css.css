@@ -126,12 +126,12 @@ video {
   height: 20px;
 }
 .keyboard-instructions {
-  background-color: #2f2f2f;
-  border: 5px #ff1f00 solid;
+  background-color: white;
+  border-radius: 5px;
   width: 30%;
-  color: #ff1f00;
+  color: #000000;
   padding: 5px;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0 auto;
   cursor: pointer;
   margin-top: 10px;
@@ -158,16 +158,14 @@ video {
   cursor: pointer;
   margin-top: 10px;
 }
+.instructionText {
+  padding: 5%;
+}
 #backBtn {
-  width: 30%;
-  color: #ff1f00;
-  padding: 5px;
-  font-size: 30px;
-  margin: 0 auto;
-  cursor: pointer;
-  margin-top: 10px;
-  background-color: #2f2f2f;
-  border: 5px #ff1f00 solid;
+  width: 50%;
+  left: 25%;
+
+  position: absolute;
 }
 #score {
   position: absolute;
