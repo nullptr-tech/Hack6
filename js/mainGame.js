@@ -409,7 +409,7 @@ function init() {
 				const testBox = new THREE.BoxGeometry(1,1,1);
 
 				var testBoxMaterials = [
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://pbs.twimg.com/profile_images/731892304168902656/QRZzKBtB_400x400.jpg"), side:THREE.DoubleSide}),
 					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
 					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
 					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
