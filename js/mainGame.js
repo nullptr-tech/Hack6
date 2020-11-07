@@ -424,7 +424,6 @@ function init() {
 					face4.vertexColors[1] = new THREE.Color(floorColour2);
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
-			
 
 				// // Creates bound boxes for the wall
 				raycaster = new THREE.Raycaster(
