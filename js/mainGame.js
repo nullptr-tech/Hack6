@@ -28,9 +28,6 @@ var raycaster;
 var testBoxMaterials;
 var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
-var floorColour = 0xF8F8F8,
-	floorColour2 = 0xF8F8F8,
-	floorColour3 = 0xF8F8F8,
 	wallColour = 0x000000;
 var fogColour = 0xffffff,
     fogColour2 = 0xffffff;
@@ -180,17 +177,11 @@ function switchLevel(icey) {
 	scene.remove(wall);
 	// Sets colors depending on selection
 	if (icey == true) {
-		floorColour = 0xffffff;
-		floorColour2 = 0xd7dbff;
-		floorColour3 = 0xa8afe3;
 		wallColour = 0x9eeefa;
 		scene.background = new THREE.Color(0x032a30);
 		scene.fog = new THREE.Fog(0x055361, 0, 200);
 		fogColour2 = 0x38a1ff;
 	} else {
-		floorColour = 0xd6dbd6;
-		floorColour2 = 0x000000;
-		floorColour3 = 0x687a68;
 		wallColour = 0x77b575;
 		scene.background = new THREE.Color(0x242923);
 		scene.fog = new THREE.Fog(0x485346, 0, 200);
@@ -205,12 +196,7 @@ function switchLevel(icey) {
 		vertex.y += Math.random() * 5;
 		vertex.z += Math.random() * 15 - 10;
 	}
-	for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
-		var face4 = floorGeometry.faces[i];
-		face4.vertexColors[0] = new THREE.Color(floorColour);
-		face4.vertexColors[1] = new THREE.Color(floorColour2);
-		face4.vertexColors[2] = new THREE.Color(floorColour3);
-	}
+
 	var floorMaterial = new THREE.MeshBasicMaterial({
 		vertexColors: THREE.VertexColors
 	});
@@ -531,22 +517,6 @@ function init() {
 				
 				scene.add(...array);
 
-				// Creates floor geometry
-				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
-				floorGeometry.rotateX(-Math.PI / 2);
-				for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
-					var vertex = floorGeometry.vertices[i];
-					vertex.x += Math.random() * 15 - 10;
-					vertex.y += Math.random() * 5;
-					vertex.z += Math.random() * 15 - 10;
-				}
-				for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
-					var face4 = floorGeometry.faces[i];
-					face4.vertexColors[0] = new THREE.Color(floorColour);
-					face4.vertexColors[1] = new THREE.Color(floorColour2);
-					face4.vertexColors[2] = new THREE.Color(floorColour3);
-				}
-
 				// // Creates bound boxes for the wall
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
@@ -566,7 +536,6 @@ function init() {
 					vertexColors: THREE.VertexColors
 				});
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
-				floor.translateY(-70);
 
 				const size = 200;
 				const divisions = 25;
@@ -574,7 +543,6 @@ function init() {
 				// const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
 				scene.add(createAGrid());
 				scene.add(createAGrid2());
-				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio(window.devicePixelRatio);
