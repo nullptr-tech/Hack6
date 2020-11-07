@@ -324,6 +324,46 @@ function init() {
 				light.position.set(0.5, 1, 0.75);
 				scene.add(light);
 				controls = new THREE.PointerLockControls(camera);
+
+				initialT = Date.now() / 1000;
+	
+					renderer = new THREE.WebGLRenderer({alpha: true});
+					renderer.setSize(window.innerWidth, window.innerHeight);
+					document.body.appendChild(renderer.domElement);
+
+					// Set up geometries, materials and meshes here
+					var cubeGeom = new THREE.BoxBufferGeometry(1, 50, 1);
+					var cityMaterial = new THREE.MeshStandardMaterial({color: 0x00aaff, wireframe: false});
+
+					cityCubes = [];
+					for(var i=0; i<100; ++i) {
+						var buildingL = new THREE.Mesh(cubeGeom, cityMaterial);
+						buildingL.position.x = -50
+						buildingL.position.z = i*-2;
+						scene.add(buildingL);
+						cityCubes.push(buildingL);
+						
+						var buildingR = new THREE.Mesh(cubeGeom, cityMaterial);
+						buildingR.position.x = 50;
+						buildingR.position.z = i*2;
+						scene.add(buildingR);
+						cityCubes.push(buildingR);
+					}
+					
+
+					var planeGeom = new THREE.PlaneBufferGeometry(200, 200);
+					var floorMaterial = new THREE.MeshStandardMaterial({color: 0xFF22FF, wireframe: false});
+					floorTile1 = new THREE.Mesh(planeGeom, floorMaterial);
+					floorTile1.position.set(0, 0, -100);
+					floorTile1.rotation.x = 90;
+					floorTile1.rotation.y = Math.PI;
+					scene.add(floorTile1);
+					
+					light = new THREE.PointLight(0xffffff);
+					light.position.set(0, 100, 400);
+					scene.add(light);
+
+
 				scene.add(controls.getObject());
 				var onKeyDown = function(event) {
 					switch (event.keyCode) {
@@ -445,6 +485,13 @@ function init() {
 				});
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
 				floor.translateY(-70);
+
+				const size = 200;
+				const divisions = 25;
+
+				const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
+				scene.add( gridHelper );
+
 				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
