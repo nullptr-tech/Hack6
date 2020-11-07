@@ -508,7 +508,7 @@ function init() {
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
-					"https://github.com/nullptr-tech/Hack6/blob/main/image_8.jpg?raw=true"
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_8.jpg"
 				]	
 					
 				for(var i=0; i<temp.length;i++){
