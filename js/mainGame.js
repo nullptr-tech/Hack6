@@ -410,12 +410,12 @@ function init() {
 				const testBox = new THREE.BoxGeometry(1,1,1);
 
 				var testBoxMaterials = [
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
 				];
 
 				//const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
