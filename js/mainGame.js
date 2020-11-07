@@ -90,7 +90,7 @@ function switchLevel(icey) {
 		fogColour2 = 0x32e02c;
 	}
 	// Generate new floor geometry object
-	floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
+	floorGeometry = new THREE.PlaneGeometry(200, 0, 70, 70);
 	floorGeometry.rotateX(-Math.PI / 2);
 	for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
 		var vertex = floorGeometry.vertices[i];
@@ -418,21 +418,6 @@ function init() {
 					vertex.x += Math.random() * 30 + 70;
 					vertex.y += Math.random() * 3 + 5000;
 					vertex.z += Math.random() * 30 - 5;
-				}
-				// Creates floor geometry
-				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
-				floorGeometry.rotateX(-Math.PI / 2);
-				for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
-					var vertex = floorGeometry.vertices[i];
-					vertex.x += Math.random() * 15 - 10;
-					vertex.y += Math.random() * 5;
-					vertex.z += Math.random() * 15 - 10;
-				}
-				for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
-					var face4 = floorGeometry.faces[i];
-					face4.vertexColors[0] = new THREE.Color(floorColour);
-					face4.vertexColors[1] = new THREE.Color(floorColour2);
-					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
