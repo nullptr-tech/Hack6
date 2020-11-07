@@ -14,7 +14,7 @@
 })();
 var wantsToPlayMusic = true;
 // Variables for bound boxes
-var wallOneBound, floor;
+var  floor;
 // Menu buttons
 var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
 // Audio
@@ -23,8 +23,10 @@ var gameAudio, mainMenuMusic, deathAudio, playDeath, mutebtn;
 var camera, scene, renderer, controls;
 // Whether or not the game is paused
 var gamePause;
+var array=[], wall;
 var raycaster;
-var score = 0;
+var testBoxMaterials;
+var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
 var floorColour = 0xF8F8F8,
 	floorColour2 = 0xF8F8F8,
@@ -317,11 +319,51 @@ function init() {
 				);
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color(backgroundColour);
-				scene.fog = new THREE.Fog(fogColour, 0, 200);
+				scene.fog = new THREE.Fog(fogColour, 0, 400);
 				var light = new THREE.HemisphereLight(0xeeeeff, 0x53535f, 0.75);
 				light.position.set(0.5, 1, 0.75);
 				scene.add(light);
 				controls = new THREE.PointerLockControls(camera);
+
+				initialT = Date.now() / 1000;
+	
+					renderer = new THREE.WebGLRenderer({alpha: true});
+					renderer.setSize(window.innerWidth, window.innerHeight);
+					document.body.appendChild(renderer.domElement);
+
+					// Set up geometries, materials and meshes here
+					var cubeGeom = new THREE.BoxBufferGeometry(1, 50, 1);
+					var cityMaterial = new THREE.MeshStandardMaterial({color: 0x00aaff, wireframe: false});
+
+					cityCubes = [];
+					for(var i=0; i<100; ++i) {
+						var buildingL = new THREE.Mesh(cubeGeom, cityMaterial);
+						buildingL.position.x = -50
+						buildingL.position.z = i*-2;
+						scene.add(buildingL);
+						cityCubes.push(buildingL);
+						
+						var buildingR = new THREE.Mesh(cubeGeom, cityMaterial);
+						buildingR.position.x = 50;
+						buildingR.position.z = i*2;
+						scene.add(buildingR);
+						cityCubes.push(buildingR);
+					}
+					
+
+					var planeGeom = new THREE.PlaneBufferGeometry(200, 200);
+					var floorMaterial = new THREE.MeshStandardMaterial({color: 0xFF22FF, wireframe: false});
+					floorTile1 = new THREE.Mesh(planeGeom, floorMaterial);
+					floorTile1.position.set(0, 0, -100);
+					floorTile1.rotation.x = 90;
+					floorTile1.rotation.y = Math.PI;
+					scene.add(floorTile1);
+					
+					light = new THREE.PointLight(0xffffff);
+					light.position.set(0, 100, 400);
+					scene.add(light);
+
+
 				scene.add(controls.getObject());
 				var onKeyDown = function(event) {
 					switch (event.keyCode) {
@@ -374,24 +416,38 @@ function init() {
 				//----------------------------------------------------------------//
 				// floor and cubes//
 				//----------------------------------------------------------------//
-
 				// Creates wall geometry
-				wallGeometry = new THREE.PlaneGeometry(100, 100);
-				wallGeometry.rotateY(-Math.PI);
-				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
-					var vertex = wallGeometry.vertices[i];
-					vertex.x += 5 - 5;
-					vertex.y += 3 + 40;
-					vertex.z += 30 + 60;
-				}
+				for(var i=0; i<5;i++){
+					if (i%2 == 0){
+						wallGeometry = new THREE.PlaneGeometry(100, 100);
+						wallGeometry.rotateY(-Math.PI);
+						for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
+							var vertex = wallGeometry.vertices[z];
+							vertex.x += moveImage - 5;
+							vertex.y += 3 + 40;
+							vertex.z += 30 + 60;
+						}
+					}
+					else{
+						wallGeometry = new THREE.PlaneGeometry(100, 100);
+						for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
+							var vertex = wallGeometry.vertices[x];
+							vertex.x += moveImage - 5;
+							vertex.y += 3 + 40;
+							vertex.z += -10 - 80;
+						}
+						moveImage += 150;
+					}
+						// Creates geometry for bound boxes
+						testBoxMaterials = [
+							new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+						];
 
-				wallGeometry2 = new THREE.PlaneGeometry(100, 100);
-				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
-					var vertex = wallGeometry2.vertices[i];
-					vertex.x += 5 - 5;
-					vertex.y += 3 + 40;
-					vertex.z += -10 - 80;
+					wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
+					array.push(wall);
 				}
+				
+				scene.add(...array);
 
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
@@ -408,28 +464,8 @@ function init() {
 					face4.vertexColors[1] = new THREE.Color(floorColour2);
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
-				// Creates geometry for bound boxes
-				var testBoxMaterials = [
 
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://pbs.twimg.com/profile_images/731892304168902656/QRZzKBtB_400x400.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-
-				];
-
-				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
-				var wall2 = new THREE.Mesh(wallGeometry2, testBoxMaterials);
-
-				scene.add(wall, wall2);
-
-				// Creates bound boxes for the wall
-				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
-				wallOneBound.update(wall);
-				scene.add(wallOneBound);
-
+				// // Creates bound boxes for the wall
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
 					new THREE.Vector3(0, 1, 0),
@@ -488,10 +524,8 @@ function animate() {
 		raycasterWall.ray.origin.copy(controls.getObject().position);
 		raycasterWall.ray.origin.y -= 10;
 		// Creates raycaster objects to detect intersections
-		var intersections1 = raycasterWall.intersectObject(wallOneBound);
 		var intersections8 = raycasterWall.intersectObject(floor);
 		// Detects if player has made contact with a bound box
-		var onObject = intersections1.length > 0;
 		var onFloor = intersections8.length > 0;
 		var time = performance.now();
 		var delta = (time - prevTime) / 1000;
@@ -511,20 +545,6 @@ function animate() {
 			if (moveForward || moveBackward)
 				velocity.z -= direction.z * 600.0 * delta;
 			if (moveLeft || moveRight) velocity.x -= direction.x * 600.0 * delta;
-			if (onObject === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
 		}
 		if (onFloor) {
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
