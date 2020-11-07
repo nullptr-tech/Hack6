@@ -381,8 +381,14 @@ function init() {
 				//----------------------------------------------------------------//
 
 				// Creates wall geometry
-				wallGeometry = new THREE.PlaneGeometry(100, 100, 360, 160);
+				wallGeometry = new THREE.PlaneGeometry(100, 100);
 				wallGeometry.rotateY(-Math.PI);
+				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
+					var vertex = wallGeometry.vertices[i];
+					vertex.x += 30 - 5;
+					vertex.y += 3 + 40;
+					vertex.z += 30 + 70;
+				}
 
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
@@ -400,21 +406,6 @@ function init() {
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
-
-				var testBox = new THREE.BoxGeometry(1,1,1);
-
-				var testBoxMaterials = [
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-				];
-
-				var material = new THREE.MeshBasicMaterial(testBoxMaterials);
-				var testCube = new THREE.Mesh( testBox, testBoxMaterials);
-
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
 
 				var boxGeometry2 = new THREE.BoxGeometry(16, 0.01, 16);
