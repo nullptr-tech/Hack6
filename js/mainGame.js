@@ -90,7 +90,7 @@ function switchLevel(icey) {
 		fogColour2 = 0x32e02c;
 	}
 	// Generate new floor geometry object
-	floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
+	floorGeometry = new THREE.PlaneGeometry(200, 0, 70, 70);
 	floorGeometry.rotateX(-Math.PI / 2);
 	for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
 		var vertex = floorGeometry.vertices[i];
