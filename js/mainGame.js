@@ -404,13 +404,39 @@ function init() {
 					face4.vertexColors[1] = new THREE.Color(floorColour2);
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
-				// Creates geometry for walls
+				// Creates geometry for bound boxes
+
+				const testBox = new THREE.BoxGeometry(1,1,1);
+
+				var testBoxMaterials = [
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+				];
+
+				//const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+
+				const tMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+				const testCube = new THREE.Mesh( testBox, tMaterial);
+
+				scene.add(testCube);
+
+
+				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
+
+				var boxGeometry2 = new THREE.BoxGeometry(16, 0.01, 16);
+
+				var boxGeometry3 = new THREE.BoxGeometry(21, 0.01, 21);
+
 				var wallMaterial = new THREE.MeshBasicMaterial({
 					color: wallColour,
-					specular: 0xffffff,
+					specular: 0xFF0000,
 					flatShading: true
 				});
-				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
+				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
 			
 				scene.add(wall);
 
