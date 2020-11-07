@@ -133,7 +133,7 @@ quitbtn.addEventListener("click", switchTrack);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 mainMenuMusic = new Audio();
-mainMenuMusic.src = "audio/menuMusic.mp3";
+mainMenuMusic.src = "audio/normalMusic.mp3";
 mainMenuMusic.loop = true;
 mainMenuMusic.play();
 
@@ -171,7 +171,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/gameplayMusic.mp3";
+		gameAudio.src = "audio/vapourWaveMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
@@ -717,13 +717,6 @@ function animate() {
 			}
 		}
 		if (onFloor) {
-			while (playDeath == true){
-			//	pauseGameplay();
-				deathAudio = new Audio();
-				deathAudio.src = "audio/deathEffect.mp3";
-				deathAudio.play();
-				playDeath = false;
-			}
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
 			document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
