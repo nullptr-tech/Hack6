@@ -381,15 +381,8 @@ function init() {
 				//----------------------------------------------------------------//
 
 				// Creates wall geometry
-				wallGeometry = new THREE.PlaneGeometry(300, 10000, 360, 160);
+				wallGeometry = new THREE.PlaneGeometry(100, 100, 360, 160);
 				wallGeometry.rotateY(-Math.PI);
-				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
-					var vertex = wallGeometry.vertices[i];
-					vertex.x += 30 - 5;
-					vertex.y += 3 + 40;
-					vertex.z += 30 + 70;
-				}
-
 
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
