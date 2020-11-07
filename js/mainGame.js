@@ -389,6 +389,15 @@ function init() {
 					vertex.z += 30 + 70;
 				}
 
+				wallGeometry2 = new THREE.PlaneGeometry(100, 100);
+				wallGeometry2.rotateY(-Math.PI/2);
+				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
+					var vertex = wallGeometry.vertices[i];
+					vertex.x += 30 - 5;
+					vertex.y += 3 + 40;
+					vertex.z += 30 + 70;
+				}
+
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
 				floorGeometry.rotateX(-Math.PI / 2);
@@ -405,21 +414,14 @@ function init() {
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
-
-				const testBox = new THREE.BoxGeometry(1,1,1);
-
 				var testBoxMaterials = [
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-					// new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
 				];
 
 				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
-			
-				scene.add(wall);
+				var wall2 = new THREE.Mesh(wallGeometry2, testBoxMaterials);
+
+				scene.add(wall, wall2);
 
 				// Creates bound boxes for the wall
 				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
