@@ -434,10 +434,10 @@ function init() {
 
 				var wallMaterial = new THREE.MeshBasicMaterial({
 					color: wallColour,
-					specular: 0xffffff,
+					specular: 0xFF0000,
 					flatShading: true
 				});
-				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
+				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
 			
 				scene.add(wall);
 
