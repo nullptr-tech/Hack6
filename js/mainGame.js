@@ -400,7 +400,7 @@ function init() {
 					}
 						// Creates geometry for bound boxes
 						testBoxMaterials = [
-							new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
+							new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
 						];
 
 					wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
@@ -521,7 +521,9 @@ function animate() {
 	if (currentScore > score) {
 		score = currentScore;
 	}
-	//document.getElementById("scoreText").innerHTML = "Score: ".concat(score);
+
+	//document.getElementById("scoreText").innerHTML = "Gallery's Image Count: ".concat(score);
+
 
 	renderer.render(scene, camera);
 }
