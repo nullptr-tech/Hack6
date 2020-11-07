@@ -243,7 +243,7 @@ mainMenuMusic.play();
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 mutebtn = document.getElementById("muteBtn");
-mutebtn.style.background = "url(images/speaker.png) no-repeat";
+mutebtn.style.background = "url(bootstrap_icons/speaker-fill.svg) no-repeat";
 mutebtn.addEventListener("click", muteAudio);
 
 function muteAudio() {
@@ -251,14 +251,14 @@ function muteAudio() {
 	if (isMuted === true) {
 		mainMenuMusic.muted = !mainMenuMusic.muted;
 		mutebtn.style.background = "";
-		mutebtn.style.background = "url(images/speaker.png) no-repeat";
+		mutebtn.style.background = "url(bootstrap_icons/speaker-fill.svg) no-repeat";
 		wantsToPlayMusic = true;
 	}
 
 	if (isMuted === false) {
 		mainMenuMusic.muted = !mainMenuMusic.muted;
 		mutebtn.style.background = "";
-		mutebtn.style.background = "url(images/muted.png) no-repeat";
+		mutebtn.style.background = "url(bootstrap_icons/speaker.svg) no-repeat";
 		wantsToPlayMusic = false;
 	}
 }
@@ -315,6 +315,7 @@ document.addEventListener("click", e => {
 			menuScreen.style.display = "none";
 			break;
 		case "backBtn":
+			window.location.reload();
 			defPointerUnlockElement.exitPointerLock();
 			menuScreen.style.display = "block";
 			blocker.style.display = "block";
@@ -435,10 +436,6 @@ function init() {
 				light.position.set(0.5, 1, 0.75);
 				scene.add(light);
 				controls = new THREE.PointerLockControls(camera);
-
-				
-
-
 				scene.add(controls.getObject());
 				var onKeyDown = function(event) {
 					switch (event.keyCode) {
@@ -492,34 +489,44 @@ function init() {
 				// floor and cubes//
 				//----------------------------------------------------------------//
 				// Creates wall geometry
+				
 				for(var i=0; i<5;i++){
+					// Creates geometry for bound boxes
+					testBoxMaterials = [
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
+					];
+					testBoxMaterials2 = [
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
+					];
+
 					if (i%2 == 0){
-						wallGeometry = new THREE.PlaneGeometry(100, 100);
-						wallGeometry.rotateY(-Math.PI);
-						for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
-							var vertex = wallGeometry.vertices[z];
-							vertex.x += moveImage - 5;
-							vertex.y += 3 + 40;
-							vertex.z += 30 + 60;
+						for(var q=0;q<2;q++){
+							wallGeometry = new THREE.PlaneGeometry(q==0?100:120, q==0?100:120);
+							wallGeometry.rotateY(-Math.PI);
+							for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
+								var vertex = wallGeometry.vertices[z];
+								vertex.x += moveImage - 5;
+								vertex.y += 3 + 40;
+								vertex.z += q==0? 30 + 60 : 31 + 60;
+							}
+							wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
+							array.push(wall);
 						}
 					}
 					else{
-						wallGeometry = new THREE.PlaneGeometry(100, 100);
-						for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
-							var vertex = wallGeometry.vertices[x];
-							vertex.x += moveImage - 5;
-							vertex.y += 3 + 40;
-							vertex.z += -10 - 80;
+						for(var w=0;w<2;w++){
+							wallGeometry = new THREE.PlaneGeometry(w==0?100:130, w==0?100:130);
+							for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
+								var vertex = wallGeometry.vertices[x];
+								vertex.x += moveImage - 5;
+								vertex.y += 3 + 40;
+								vertex.z += w==0?-10-80:-11 - 80;
+							}
+							wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
+							array.push(wall);
 						}
 						moveImage += 150;
 					}
-						// Creates geometry for bound boxes
-						testBoxMaterials = [
-							new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./test_img.jpg"), side:THREE.DoubleSide}),
-						];
-
-					wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
-					array.push(wall);
 				}
 				
 				scene.add(...array);
@@ -623,7 +630,7 @@ function animate() {
 		}
 		if (onFloor) {
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
-			document.getElementById("scoreText").style.display = "none";
+		//	document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
 		    displayScore();
 		}
@@ -643,7 +650,9 @@ function animate() {
 	if (currentScore > score) {
 		score = currentScore;
 	}
-	document.getElementById("scoreText").innerHTML = "Score: ".concat(score);
+
+	//document.getElementById("scoreText").innerHTML = "Gallery's Image Count: ".concat(score);
+
 
 	renderer.render(scene, camera);
 }
