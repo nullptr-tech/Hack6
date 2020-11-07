@@ -29,8 +29,8 @@ var testBoxMaterials;
 var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
 	wallColour = 0x000000;
-var fogColour = 0xffffff,
-    fogColour2 = 0xffffff;
+var fogColour = 0x000000,
+    fogColour2 = 0x000000;
 var backgroundColour = 0x000000;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
@@ -473,7 +473,32 @@ function init() {
 
 				//----------------------------------------------------------------//
 				// floor and cubes//
+
+
 				//----------------------------------------------------------------//
+				// SkyBox
+				var geo = new THREE.CubeGeometry(500,500,500); //skybox size change to make bigger 
+				var skyBoxMaterials = 
+				[
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("skybox_sky.jpg"), side: THREE.DoubleSide}),//sky image
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),//floor image
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide})
+				];
+				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
+				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
+				var skyBox = new THREE.Mesh(geo, skyBoxMaterial);
+				scene.add(skyBox);
+				scene.add(ambientLight);
+				//-----------------------------------------------------------------------------------------------------
+				
+				
+				
+				
+				
+				
 				// Creates wall geometry
 				var temp = [
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
