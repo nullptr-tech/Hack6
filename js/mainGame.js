@@ -479,7 +479,7 @@ function init() {
 				for(var i=0; i<5;i++){
 					// Creates geometry for bound boxes
 					testBoxMaterials = [
-						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://github.com/nullptr-tech/Hack6/blob/main/overview.png?raw=true"), side:THREE.DoubleSide}),
 					];
 					testBoxMaterials2 = [
 						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
