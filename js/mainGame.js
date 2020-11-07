@@ -132,7 +132,7 @@ mainMenuMusic.play();
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 mutebtn = document.getElementById("muteBtn");
-mutebtn.style.background = "url(images/speaker.png) no-repeat";
+mutebtn.style.background = "url(bootstrap_icons/speaker-fill.svg) no-repeat";
 mutebtn.addEventListener("click", muteAudio);
 
 function muteAudio() {
@@ -140,14 +140,14 @@ function muteAudio() {
 	if (isMuted === true) {
 		mainMenuMusic.muted = !mainMenuMusic.muted;
 		mutebtn.style.background = "";
-		mutebtn.style.background = "url(images/speaker.png) no-repeat";
+		mutebtn.style.background = "url(bootstrap_icons/speaker-fill.svg) no-repeat";
 		wantsToPlayMusic = true;
 	}
 
 	if (isMuted === false) {
 		mainMenuMusic.muted = !mainMenuMusic.muted;
 		mutebtn.style.background = "";
-		mutebtn.style.background = "url(images/muted.png) no-repeat";
+		mutebtn.style.background = "url(bootstrap_icons/speaker.svg) no-repeat";
 		wantsToPlayMusic = false;
 	}
 }
@@ -501,7 +501,7 @@ function animate() {
 		}
 		if (onFloor) {
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
-			document.getElementById("scoreText").style.display = "none";
+		//	document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
 		    displayScore();
 		}
@@ -521,7 +521,7 @@ function animate() {
 	if (currentScore > score) {
 		score = currentScore;
 	}
-	document.getElementById("scoreText").innerHTML = "Score: ".concat(score);
+	//document.getElementById("scoreText").innerHTML = "Score: ".concat(score);
 
 	renderer.render(scene, camera);
 }

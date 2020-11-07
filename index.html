@@ -10,15 +10,16 @@
 	<link rel="shortcut icon" type="image/png" href="favicon.png" />
 </head>
 
-<body>
+<body class="bg">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 	<script src="js/three.js"></script>
 	<script src="js/controls/controls.js"></script>
 	<script src="js/loaders/MTLLoader.js"></script>
 	<script src="js/loaders/OBJLoader.js"></script>
-
+	
 	<div id="blocker"></div>
+	<div class="bg">
 	<div id="instructions">
 		<p class="keyboard-instructions"> (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)</p>
 		<p class="button button-blue" id="backBtn">« Back</p>
@@ -30,23 +31,36 @@
 	</div>
 
 	<div id="pauseScreen">
-		<p class="button button-continue" id="continueBtn">Continue</p>
-		<p class="button button-quit" id="quitBtn">Quit</p>
+		<button type="button" class="btn btn-light btn-sm btn-block" id="continueBtn">Continue</button>
+			<button type="button" class="btn btn-light btn-sm btn-block" id="quitBtn">Quit</button>
 	</div>
+
+
 	<div id="menuScreen">
-		<div id="loadingScreen">
+		<!--<div id="loadingScreen">
 			<video autoplay="true" poster="images/loadingPoster.jpg">
 				<source src="loading.mp4" type="video/mp4">
 			</video>
-		</div>
-		<img src="images/volcanoescape3.png" alt="volcano" height="700">
-		<div id="muteBtn"> </div>
-		<div id="buttons">
-			<p class="button button-play" id="playBtn">Enter virtual gallery</p>
-			<p class="button button-help" id="helpBtn">Help</p>
-		</div>
-		<script src="js/mainGame.js"></script>
+		</div>-->
+	<div id="menuItems">
+	<div class="custom-control custom-switch" id="switch">
+		<input type="checkbox" class="custom-control-input" id="customSwitch1">
+		<label class="custom-control-label" for="customSwitch1">Secret Switch</label>
 	</div>
+		<img src="art_gallery.png" alt="volcano" height="100", width="100" class="menuImage">
+		<div id="muteBtn"> 
+			
+		</div>
+		<div class="button">
+			<button type="button" class="btn btn-light btn-sm btn-block" id="playBtn">Enter virtual gallery</button>
+		</div>
+		<div class="button">
+			<button type="button" class="btn btn-light btn-sm btn-block" id="helpBtn">Help</button>
+		</div>
+	</div>
+		
+		<script src="js/mainGame.js"></script>
+
 	<div id="scoreContainer">
 	</div>
 	<div id="scoreDisplay">
@@ -54,5 +68,6 @@
 	<div id="score">
 		<p id="scoreText"></p>
 	</div>
+</div>
 </body>
 </html>
