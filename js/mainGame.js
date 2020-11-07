@@ -34,7 +34,7 @@ var floorColour = 0xF8F8F8,
 	wallColour = 0x000000;
 var fogColour = 0xffffff,
     fogColour2 = 0xffffff;
-var backgroundColour = 0xffffff;
+var backgroundColour = 0x000000;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
 var instructions = document.getElementById("instructions");
@@ -60,6 +60,117 @@ setTimeout(hideDiv, 6900);
 function hideDiv() {
 	document.getElementById("loadingScreen").style.display = "none";
 }
+
+function createAGrid(opts) {
+	var config = opts || {
+	  height: 5000,
+	  width: 5000,
+	  linesHeight: 450,
+	  linesWidth: 450,
+	  color: 0x9F00FF
+	};
+  
+	var material = new THREE.LineBasicMaterial({
+	  color: config.color,
+	  opacity: 0.2,
+	  linewidth: 20,
+	});
+  
+	var gridObject = new THREE.Object3D(),
+	  gridGeo = new THREE.Geometry(),
+	  stepw = 2 * config.width / config.linesWidth,
+	  steph = 2 * config.height / config.linesHeight;
+  
+	//width
+	for (var i = -config.width; i <= config.width; i += stepw) {
+	  gridGeo.vertices.push(new THREE.Vector3(i, -9, -config.height));
+	  gridGeo.vertices.push(new THREE.Vector3(i, -9, config.height));
+	}
+	//height
+	for (var i = -config.height; i <= config.height; i += steph) {
+	  gridGeo.vertices.push(new THREE.Vector3(-config.width,-9, i));
+	  gridGeo.vertices.push(new THREE.Vector3(config.width,-9, i));
+	}
+  
+	var line = new THREE.LineSegments(gridGeo, material);
+	gridObject.add(line);
+  
+	return gridObject;
+  }
+
+  function createAGrid2(opts) {
+	var config = opts || {
+	  height: 5000,
+	  width: 5000,
+	  linesHeight: 450,
+	  linesWidth: 450,
+	  color: 0x9F00FF
+	};
+  
+	var material = new THREE.LineBasicMaterial({
+	  color: config.color,
+	  opacity: 0.2,
+	});
+  
+	var gridObject = new THREE.Object3D(),
+	  gridGeo = new THREE.Geometry(),
+	  stepw = 2 * config.width / config.linesWidth,
+	  steph = 2 * config.height / config.linesHeight;
+  
+	//width
+	for (var i = -config.width; i <= config.width; i += stepw) {
+	  gridGeo.vertices.push(new THREE.Vector3(i, 120, -config.height));
+	  gridGeo.vertices.push(new THREE.Vector3(i, 120, config.height));
+  
+	}
+	//height
+	for (var i = -config.height; i <= config.height; i += steph) {
+	  gridGeo.vertices.push(new THREE.Vector3( -config.width,120, i));
+	  gridGeo.vertices.push(new THREE.Vector3( config.width,120, i));
+	}
+  
+	var line = new THREE.LineSegments(gridGeo, material);
+	gridObject.add(line);
+  
+	return gridObject;
+  }
+
+  function createAGridVERT(opts) {
+	var config = opts || {
+	  height: 200,
+	  width: 200,
+	  linesHeight: 450,
+	  linesWidth: 450,
+	  color: 0x9F00FF
+	};
+  
+	var material = new THREE.LineBasicMaterial({
+	  color: config.color,
+	  opacity: 0.2,
+	});
+  
+	var gridObject = new THREE.Object3D(),
+	  gridGeo = new THREE.Geometry(),
+	  stepw = 2 * config.width / config.linesWidth,
+	  steph = 2 * config.height / config.linesHeight;
+  
+	//width
+	for (var i = -config.width; i <= config.width; i += stepw) {
+	  gridGeo.vertices.push(new THREE.Vector3(i, -config.height, 0));
+	  gridGeo.vertices.push(new THREE.Vector3(i, config.height, 0));
+  
+	}
+	//height
+	for (var i = -config.height; i <= config.height; i += steph) {
+	  gridGeo.vertices.push(new THREE.Vector3( -config.width,i, 0));
+	  gridGeo.vertices.push(new THREE.Vector3( config.width,i, 0));
+	}
+  
+	var line = new THREE.LineSegments(gridGeo, material);
+	gridObject.add(line);
+  
+	return gridObject;
+  }
 
 // Remove key elements of enviroment, replace them with texturees in new style
 function switchLevel(icey) {
@@ -325,43 +436,7 @@ function init() {
 				scene.add(light);
 				controls = new THREE.PointerLockControls(camera);
 
-				initialT = Date.now() / 1000;
-	
-					renderer = new THREE.WebGLRenderer({alpha: true});
-					renderer.setSize(window.innerWidth, window.innerHeight);
-					document.body.appendChild(renderer.domElement);
-
-					// Set up geometries, materials and meshes here
-					var cubeGeom = new THREE.BoxBufferGeometry(1, 50, 1);
-					var cityMaterial = new THREE.MeshStandardMaterial({color: 0x00aaff, wireframe: false});
-
-					cityCubes = [];
-					for(var i=0; i<100; ++i) {
-						var buildingL = new THREE.Mesh(cubeGeom, cityMaterial);
-						buildingL.position.x = -50
-						buildingL.position.z = i*-2;
-						scene.add(buildingL);
-						cityCubes.push(buildingL);
-						
-						var buildingR = new THREE.Mesh(cubeGeom, cityMaterial);
-						buildingR.position.x = 50;
-						buildingR.position.z = i*2;
-						scene.add(buildingR);
-						cityCubes.push(buildingR);
-					}
-					
-
-					var planeGeom = new THREE.PlaneBufferGeometry(200, 200);
-					var floorMaterial = new THREE.MeshStandardMaterial({color: 0xFF22FF, wireframe: false});
-					floorTile1 = new THREE.Mesh(planeGeom, floorMaterial);
-					floorTile1.position.set(0, 0, -100);
-					floorTile1.rotation.x = 90;
-					floorTile1.rotation.y = Math.PI;
-					scene.add(floorTile1);
-					
-					light = new THREE.PointLight(0xffffff);
-					light.position.set(0, 100, 400);
-					scene.add(light);
+				
 
 
 				scene.add(controls.getObject());
@@ -489,9 +564,9 @@ function init() {
 				const size = 200;
 				const divisions = 25;
 
-				const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
-				scene.add( gridHelper );
-
+				// const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
+				scene.add(createAGrid());
+				scene.add(createAGrid2());
 				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
@@ -543,8 +618,8 @@ function animate() {
 			document.getElementById("continueBtn").style.display = "none";
 		} else {
 			if (moveForward || moveBackward)
-				velocity.z -= direction.z * 600.0 * delta;
-			if (moveLeft || moveRight) velocity.x -= direction.x * 600.0 * delta;
+				velocity.z -= direction.z * 900.0 * delta;
+			if (moveLeft || moveRight) velocity.x -= direction.x * 900.0 * delta;
 		}
 		if (onFloor) {
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
