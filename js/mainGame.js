@@ -409,14 +409,14 @@ function init() {
 
 				const testBox = new THREE.BoxGeometry(1,1,1);
 
-				/*var testBoxMaterials = [
+				var testBoxMaterials = [
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-				];*/
+				];
 
 				//const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 
@@ -437,7 +437,7 @@ function init() {
 					specular: 0xffffff,
 					flatShading: true
 				});
-				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
+				var wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
 			
 				scene.add(wall);
 
