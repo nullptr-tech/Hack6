@@ -392,7 +392,7 @@ function init() {
 				wallGeometry2 = new THREE.PlaneGeometry(100, 100);
 				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
 					var vertex = wallGeometry2.vertices[i];
-					vertex.x += 30 - 5;
+					vertex.x += 150 - 5;
 					vertex.y += 3 + 40;
 					vertex.z += 30 - 80;
 				}
