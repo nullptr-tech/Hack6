@@ -62,7 +62,6 @@ defPointerUnlockElement.exitPointerLock =
 setTimeout(hideDiv, 6900);
 function hideDiv() {
 	document.getElementById("loadingScreen").style.display = "none";
-	document.getElementById("slidecontainer").style.display = "block";
 }
 
 // Remove key elements of enviroment, replace them with texturees in new style
@@ -171,7 +170,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/vapourWaveMusic.mp3";
+		gameAudio.src = "audio/normalMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
