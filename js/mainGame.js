@@ -19,7 +19,6 @@ var wallOneBound, floor;
 var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
 // Audio
 var gameAudio, mainMenuMusic, deathAudio, playDeath, mutebtn;
-var rockObject;
 // Camera,controls and scene objects
 var camera, scene, renderer, controls;
 // Whether or not the game is paused
@@ -405,13 +404,7 @@ function init() {
 					face4.vertexColors[1] = new THREE.Color(floorColour2);
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
-				// Creates geometry for bound boxes
-				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
-
-				var boxGeometry2 = new THREE.BoxGeometry(16, 0.01, 16);
-
-				var boxGeometry3 = new THREE.BoxGeometry(21, 0.01, 21);
-
+				// Creates geometry for walls
 				var wallMaterial = new THREE.MeshBasicMaterial({
 					color: wallColour,
 					specular: 0xffffff,
@@ -421,96 +414,6 @@ function init() {
 			
 				scene.add(wall);
 
-				// Creates the jumpy rocks
-				var boxMaterial = new THREE.MeshPhongMaterial({
-					color: 0xff0000,
-					transparent: true,
-					opacity: 0,
-					side: THREE.DoubleSide
-				});
-				for (var i = 0; i < 500; i++) {
-					// Creates the bound box of the rock
-					var box = new THREE.Mesh(boxGeometry, boxMaterial);
-					var randomXPos = Math.floor(Math.random() * 20 - 8.85) * 6;
-					var randomYPos = Math.floor(Math.random() * 600) * 18 + 10;
-					var randomZPos = Math.floor(Math.random() * 20 - 8) * 6;
-					box.position.x = randomXPos;
-					box.position.y = randomYPos;
-					box.position.z = randomZPos;
-					// Creates the visable rock
-					var object2 = object.clone();
-					object2.position.x = randomXPos;
-					// -y so that visible rock is slightly below bound box, giving illusion of height
-					object2.position.y = randomYPos - 6;
-					object2.position.z = randomZPos;
-					object2.castShadow = true;
-					object2.scale.set(4, 10, 4);
-					object2.receiveShadow = true;
-					object2.visible = true;
-					scene.add(object2);
-					scene.add(box);
-					objects.push(box);
-				}
-				// Creates the normal rocks
-				var boxMaterial2 = new THREE.MeshPhongMaterial({
-					color: 0xff0000,
-					transparent: true,
-					opacity: 0,
-					side: THREE.DoubleSide
-				});
-				for (var i = 0; i < 1600; i++) {
-					// Creates the bound box of the rock
-					var box2 = new THREE.Mesh(boxGeometry2, boxMaterial2);
-					var randomXPos = Math.floor(Math.random() * 20 - 8.85) * 6;
-					var randomYPos = Math.floor(Math.random() * 600) * 18 + 10;
-					var randomZPos = Math.floor(Math.random() * 20 - 8) * 6;
-					box2.position.x = randomXPos;
-					box2.position.y = randomYPos;
-					box2.position.z = randomZPos;
-					// Creates the visable rock
-					var object3 = object.clone();
-					object3.position.x = randomXPos;
-					// -y so that visible rock is slightly below bound box, giving illusion of height
-					object3.position.y = randomYPos - 12;
-					object3.position.z = randomZPos;
-					object3.castShadow = true;
-					object3.scale.set(6, 6, 6);
-					object3.receiveShadow = true;
-					object3.visible = true;
-					scene.add(object3);
-					scene.add(box2);
-					objects2.push(box2);
-				}
-				// Creates the sinking rocks
-				var boxMaterial3 = new THREE.MeshPhongMaterial({
-					color: 0xff0000,
-					transparent: true,
-					opacity: 0,
-					side: THREE.DoubleSide
-				});
-				for (var i = 0; i < 200; i++) {
-					// Creates the bound box of the rock
-					var box3 = new THREE.Mesh(boxGeometry3, boxMaterial3);
-					var randomXPos = Math.floor(Math.random() * 20 - 8.85) * 6;
-					var randomYPos = Math.floor(Math.random() * 600) * 18 + 10;
-					var randomZPos = Math.floor(Math.random() * 20 - 8) * 6;
-					box3.position.x = randomXPos;
-					box3.position.y = randomYPos;
-					box3.position.z = randomZPos;
-					// Creates the visable rock
-					var object4 = object.clone();
-					object4.position.x = randomXPos;
-					// -y so that visible rock is slightly below bound box, giving illusion of height
-					object4.position.y = randomYPos - 8;
-					object4.position.z = randomZPos;
-					object4.castShadow = true;
-					object4.scale.set(9, 4, 9);
-					object4.receiveShadow = true;
-					object4.visible = true;
-					scene.add(object4);
-					scene.add(box3);
-					objects3.push(box3);
-				}
 				// Creates bound boxes for the wall
 				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
 				wallOneBound.update(wall);
