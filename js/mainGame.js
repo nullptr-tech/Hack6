@@ -381,23 +381,14 @@ function init() {
 				//----------------------------------------------------------------//
 
 				// Creates wall geometry
-				wallGeometry = new THREE.PlaneGeometry(300, 10000, 360, 160);
+				wallGeometry = new THREE.PlaneGeometry(100, 100);
+				wallGeometry.rotateY(-Math.PI);
 				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
 					var vertex = wallGeometry.vertices[i];
 					vertex.x += 30 - 5;
-					vertex.y += 3 + 5000;
+					vertex.y += 3 + 40;
 					vertex.z += 30 + 70;
 				}
-
-				//IF we want to rotate a wall use this code <3 !!!
-
-				// wallGeometry.rotateY(-Math.PI / 2);
-				// for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
-				// 	var vertex = wallGeometry2.vertices[i];
-				// 	vertex.x += Math.random() * 30 - 95;
-				// 	vertex.y += Math.random() * 3 + 5000;
-				// 	vertex.z += Math.random() * 30 - 5;
-				// }
 
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
