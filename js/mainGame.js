@@ -420,7 +420,9 @@ function init() {
 				];
 
 				var material = new THREE.MeshBasicMaterial(testBoxMaterials);
-				var testCube = new THREE.Mesh( testBox, testBoxMaterials);
+				var testCube = new THREE.Mesh( testBox, material);
+
+				scene.add(testCube);
 
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
 
