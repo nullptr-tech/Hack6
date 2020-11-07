@@ -31,9 +31,9 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0x615d5a,
-	floorColour2 = 0x803e00,
-	floorColour3 = 0x000000,
+var floorColour = 0xf76dc8,
+	floorColour2 = 0x05f79c,
+	floorColour3 = 0x05f79c,
 	wallColour = 0xd2691e;
 var lavaColour = 0xd2691e,
 	lavaColour2 = 0xe60000,
