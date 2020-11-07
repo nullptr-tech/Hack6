@@ -400,6 +400,21 @@ function init() {
 					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
+
+				var testBox = new THREE.BoxGeometry(1,1,1);
+
+				var testBoxMaterials = [
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
+				];
+
+				var material = new THREE.MeshBasicMaterial(testBoxMaterials);
+				var testCube = new THREE.Mesh( testBox, testBoxMaterials);
+
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
 
 				var boxGeometry2 = new THREE.BoxGeometry(16, 0.01, 16);
