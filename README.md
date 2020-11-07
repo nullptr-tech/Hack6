@@ -1,1 +1,1 @@
-# volcanoescape.github.io
+# https://null-online.com/Hack6/
