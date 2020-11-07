@@ -62,7 +62,6 @@ defPointerUnlockElement.exitPointerLock =
 setTimeout(hideDiv, 6900);
 function hideDiv() {
 	document.getElementById("loadingScreen").style.display = "none";
-	document.getElementById("slidecontainer").style.display = "block";
 }
 
 // Remove key elements of enviroment, replace them with texturees in new style
