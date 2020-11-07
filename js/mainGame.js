@@ -69,7 +69,7 @@ function switchLevel(icey) {
 	// Remove floor and remove lava
 	scene.remove(floor);
 	// Remove all four walls
-	scene.remove(wall, wall2, wall3, wall4);
+	scene.remove(wall);
 	// Sets colors depending on selection
 	if (icey == true) {
 		floorColour = 0xffffff;
@@ -116,10 +116,7 @@ function switchLevel(icey) {
 		flatShading: true
 	});
 	var wall = new THREE.Mesh(wallGeometry, wallMaterial);
-	var wall2 = new THREE.Mesh(wallGeometry2, wallMaterial);
-	var wall3 = new THREE.Mesh(wallGeometry3, wallMaterial);
-	var wall4 = new THREE.Mesh(wallGeometry4, wallMaterial);
-	scene.add(wall, wall2, wall3, wall4);
+	scene.add(wall);
 }
 
 iceyBtn = document.getElementById("iceyBtn");
@@ -306,9 +303,6 @@ var velocity = new THREE.Vector3();
 var direction = new THREE.Vector3();
 var floorGeometry;
 var wallGeometry;
-var wallGeometry2;
-var wallGeometry3;
-var wallGeometry4;
 
 function init() {
 	var mtlLoader = new THREE.MTLLoader();
@@ -390,34 +384,21 @@ function init() {
 				wallGeometry = new THREE.PlaneGeometry(300, 10000, 360, 160);
 				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
 					var vertex = wallGeometry.vertices[i];
-					vertex.x += Math.random() * 30 - 5;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 + 70;
+					vertex.x += 30 - 5;
+					vertex.y += 3 + 5000;
+					vertex.z += 30 + 70;
 				}
 
-				wallGeometry2 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				wallGeometry2.rotateY(-Math.PI / 2);
-				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
-					var vertex = wallGeometry2.vertices[i];
-					vertex.x += Math.random() * 30 - 95;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 5;
-				}
-				wallGeometry3 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				for (var i = 0, l = wallGeometry3.vertices.length; i < l; i++) {
-					var vertex = wallGeometry3.vertices[i];
-					vertex.x += Math.random() * 30 - 5;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 80;
-				}
-				wallGeometry4 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				wallGeometry4.rotateY(-Math.PI / 2);
-				for (var i = 0, l = wallGeometry4.vertices.length; i < l; i++) {
-					var vertex = wallGeometry4.vertices[i];
-					vertex.x += Math.random() * 30 + 70;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 5;
-				}
+				//IF we want to rotate a wall use this code <3 !!!
+
+				// wallGeometry.rotateY(-Math.PI / 2);
+				// for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
+				// 	var vertex = wallGeometry2.vertices[i];
+				// 	vertex.x += Math.random() * 30 - 95;
+				// 	vertex.y += Math.random() * 3 + 5000;
+				// 	vertex.z += Math.random() * 30 - 5;
+				// }
+
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
 				floorGeometry.rotateX(-Math.PI / 2);
@@ -446,10 +427,8 @@ function init() {
 					flatShading: true
 				});
 				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
-				var wall2 = new THREE.Mesh(wallGeometry2, wallMaterial);
-				var wall3 = new THREE.Mesh(wallGeometry3, wallMaterial);
-				var wall4 = new THREE.Mesh(wallGeometry4, wallMaterial);
-				scene.add(wall, wall2, wall3, wall4);
+			
+				scene.add(wall);
 
 				// Creates the jumpy rocks
 				var boxMaterial = new THREE.MeshPhongMaterial({
