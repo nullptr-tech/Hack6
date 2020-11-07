@@ -409,17 +409,19 @@ function init() {
 
 				var testBox = new THREE.BoxGeometry(1,1,1);
 
-				var testBoxMaterials = [
+				/*var testBoxMaterials = [
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
-				];
+				];*/
 
-				var material = new THREE.MeshBasicMaterial(testBoxMaterials);
-				var testCube = new THREE.Mesh( testBox, material);
+				const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+
+				var tMaterial = new THREE.MeshBasicMaterial(testBoxMaterials);
+				var testCube = new THREE.Mesh( testBox, tMaterial);
 
 				scene.add(testCube);
 
