@@ -475,11 +475,15 @@ function init() {
 				// floor and cubes//
 				//----------------------------------------------------------------//
 				// Creates wall geometry
-				
-				for(var i=0; i<5;i++){
+				var temp = [
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagae_2.png",
+				]	
+					
+				for(var i=0; i<temp.length;i++){
 					// Creates geometry for bound boxes
 					testBoxMaterials = [
-						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png"), side:THREE.DoubleSide}),
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(temp[i]), side:THREE.DoubleSide}),
 					];
 					testBoxMaterials2 = [
 						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
