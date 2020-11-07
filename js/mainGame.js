@@ -502,7 +502,7 @@ function init() {
 				// Creates wall geometry
 				var temp = [
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagae_2.png",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
 				]	
 					
 				for(var i=0; i<temp.length;i++){
