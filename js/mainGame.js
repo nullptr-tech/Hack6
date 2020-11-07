@@ -14,7 +14,7 @@
 })();
 var wantsToPlayMusic = true;
 // Variables for bound boxes
-var wallTwoBound, wallThreeBound, wallFourBound, wallOneBound, floor;
+var wallOneBound, floor;
 // Menu buttons
 var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
 // Audio
@@ -31,13 +31,13 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0x615d5a,
-	floorColour2 = 0x803e00,
-	floorColour3 = 0x000000,
-	wallColour = 0xd2691e;
-var fogColour = 0x800000,
-    fogColour2 = 0xe76201;
-var backgroundColour = 0x660000;
+var floorColour = 0xF8F8F8,
+	floorColour2 = 0xF8F8F8,
+	floorColour3 = 0xF8F8F8,
+	wallColour = 0x000000;
+var fogColour = 0xffffff,
+    fogColour2 = 0xffffff;
+var backgroundColour = 0xffffff;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
 var instructions = document.getElementById("instructions");
@@ -90,7 +90,7 @@ function switchLevel(icey) {
 		fogColour2 = 0x32e02c;
 	}
 	// Generate new floor geometry object
-	floorGeometry = new THREE.PlaneGeometry(200, 0, 70, 70);
+	floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
 	floorGeometry.rotateX(-Math.PI / 2);
 	for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
 		var vertex = floorGeometry.vertices[i];
@@ -531,15 +531,6 @@ function init() {
 				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
 				wallOneBound.update(wall);
 				scene.add(wallOneBound);
-				wallTwoBound = new THREE.BoxHelper(wall2, 0xffff00);
-				wallTwoBound.update(wall2);
-				scene.add(wallTwoBound);
-				wallThreeBound = new THREE.BoxHelper(wall3, 0xffff00);
-				wallThreeBound.update(wall3);
-				scene.add(wallThreeBound);
-				wallFourBound = new THREE.BoxHelper(wall4, 0xffff00);
-				wallFourBound.update(wall4);
-				scene.add(wallOneBound, wallTwoBound, wallThreeBound, wallFourBound);
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
 					new THREE.Vector3(0, 1, 0),
@@ -595,18 +586,12 @@ function animate() {
 		var intersections2 = raycaster.intersectObjects(objects2);
 		var intersections3 = raycaster.intersectObjects(objects3);
 		var intersections4 = raycasterWall.intersectObject(wallOneBound);
-		var intersections5 = raycasterWall.intersectObject(wallTwoBound);
-		var intersections6 = raycasterWall.intersectObject(wallThreeBound);
-		var intersections7 = raycasterWall.intersectObject(wallFourBound);
 		var intersections8 = raycasterWall.intersectObject(floor);
 		// Detects if player has made contact with a bound box
 		var onObject = intersections.length > 0;
 		var onObject2 = intersections2.length > 0;
 		var onObject3 = intersections3.length > 0;
 		var onObject4 = intersections4.length > 0;
-		var onObject5 = intersections5.length > 0;
-		var onObject6 = intersections6.length > 0;
-		var onObject7 = intersections7.length > 0;
 		var onFloor = intersections8.length > 0;
 		var time = performance.now();
 		var delta = (time - prevTime) / 1000;
@@ -645,48 +630,6 @@ function animate() {
 				canJump = false;
 			}
 			if (onObject4 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
-			if (onObject5 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
-			if (onObject6 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
-			if (onObject7 === true) {
 				if (moveForward == true) {
 					velocity.z = 200;
 				}
