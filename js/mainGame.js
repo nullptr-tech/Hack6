@@ -377,34 +377,44 @@ function init() {
 				// floor and cubes//
 				//----------------------------------------------------------------//
 				// Creates wall geometry
+				
 				for(var i=0; i<5;i++){
+					// Creates geometry for bound boxes
+					testBoxMaterials = [
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
+					];
+					testBoxMaterials2 = [
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
+					];
+
 					if (i%2 == 0){
-						wallGeometry = new THREE.PlaneGeometry(100, 100);
-						wallGeometry.rotateY(-Math.PI);
-						for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
-							var vertex = wallGeometry.vertices[z];
-							vertex.x += moveImage - 5;
-							vertex.y += 3 + 40;
-							vertex.z += 30 + 60;
+						for(var q=0;q<2;q++){
+							wallGeometry = new THREE.PlaneGeometry(q==0?100:120, q==0?100:120);
+							wallGeometry.rotateY(-Math.PI);
+							for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
+								var vertex = wallGeometry.vertices[z];
+								vertex.x += moveImage - 5;
+								vertex.y += 3 + 40;
+								vertex.z += q==0? 30 + 60 : 31 + 60;
+							}
+							wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
+							array.push(wall);
 						}
 					}
 					else{
-						wallGeometry = new THREE.PlaneGeometry(100, 100);
-						for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
-							var vertex = wallGeometry.vertices[x];
-							vertex.x += moveImage - 5;
-							vertex.y += 3 + 40;
-							vertex.z += -10 - 80;
+						for(var w=0;w<2;w++){
+							wallGeometry = new THREE.PlaneGeometry(w==0?100:130, w==0?100:130);
+							for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
+								var vertex = wallGeometry.vertices[x];
+								vertex.x += moveImage - 5;
+								vertex.y += 3 + 40;
+								vertex.z += w==0?-10-80:-11 - 80;
+							}
+							wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
+							array.push(wall);
 						}
 						moveImage += 150;
 					}
-						// Creates geometry for bound boxes
-						testBoxMaterials = [
-							new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
-						];
-
-					wall = new THREE.Mesh(wallGeometry, testBoxMaterials);
-					array.push(wall);
 				}
 				
 				scene.add(...array);
