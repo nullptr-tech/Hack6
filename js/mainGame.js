@@ -23,10 +23,6 @@ var gameAudio, mainMenuMusic, deathAudio, playDeath, mutebtn;
 var camera, scene, renderer, controls;
 // Whether or not the game is paused
 var gamePause;
-// Stores bound boxes objects for the jumpy rocks, normal rocks and sinking rocks, respectively
-var objects = [],
-	objects2 = [],
-	objects3 = [];
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
@@ -384,17 +380,17 @@ function init() {
 				wallGeometry.rotateY(-Math.PI);
 				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
 					var vertex = wallGeometry.vertices[i];
-					vertex.x += 30 - 5;
+					vertex.x += 5 - 5;
 					vertex.y += 3 + 40;
-					vertex.z += 30 + 70;
+					vertex.z += 30 + 60;
 				}
 
 				wallGeometry2 = new THREE.PlaneGeometry(100, 100);
 				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
 					var vertex = wallGeometry2.vertices[i];
-					vertex.x += 30 - 5;
+					vertex.x += 5 - 5;
 					vertex.y += 3 + 40;
-					vertex.z += 0 - 80;
+					vertex.z += -10 - 80;
 				}
 
 				// Creates floor geometry
@@ -477,16 +473,10 @@ function animate() {
 		raycasterWall.ray.origin.copy(controls.getObject().position);
 		raycasterWall.ray.origin.y -= 10;
 		// Creates raycaster objects to detect intersections
-		var intersections = raycaster.intersectObjects(objects);
-		var intersections2 = raycaster.intersectObjects(objects2);
-		var intersections3 = raycaster.intersectObjects(objects3);
-		var intersections4 = raycasterWall.intersectObject(wallOneBound);
+		var intersections1 = raycasterWall.intersectObject(wallOneBound);
 		var intersections8 = raycasterWall.intersectObject(floor);
 		// Detects if player has made contact with a bound box
-		var onObject = intersections.length > 0;
-		var onObject2 = intersections2.length > 0;
-		var onObject3 = intersections3.length > 0;
-		var onObject4 = intersections4.length > 0;
+		var onObject = intersections1.length > 0;
 		var onFloor = intersections8.length > 0;
 		var time = performance.now();
 		var delta = (time - prevTime) / 1000;
@@ -504,27 +494,9 @@ function animate() {
 			document.getElementById("continueBtn").style.display = "none";
 		} else {
 			if (moveForward || moveBackward)
-				velocity.z -= direction.z * 400.0 * delta;
-			if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
-			if (camera.getWorldPosition().y > 20) {
-				if (onObject != true || onObject2 != true || onObject3 != true) {
-					canJump = false;
-				}
-			}
+				velocity.z -= direction.z * 600.0 * delta;
+			if (moveLeft || moveRight) velocity.x -= direction.x * 600.0 * delta;
 			if (onObject === true) {
-				velocity.y = 350;
-				canJump = false;
-			}
-			if (onObject2 === true) {
-				velocity.y = Math.max(0, velocity.y);
-				canJump = true;
-			}
-			// When you hit a sinking rock
-			if (onObject3 === true) {
-				velocity.y = Math.max(-7, velocity.y);
-				canJump = false;
-			}
-			if (onObject4 === true) {
 				if (moveForward == true) {
 					velocity.z = 200;
 				}
