@@ -14,7 +14,7 @@
 })();
 var wantsToPlayMusic = true;
 // Variables for bound boxes
-var wallTwoBound, wallThreeBound, wallFourBound, wallOneBound, floor;
+var wallOneBound, floor;
 // Menu buttons
 var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
 // Audio
@@ -31,13 +31,13 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0x615d5a,
-	floorColour2 = 0x803e00,
-	floorColour3 = 0x000000,
-	wallColour = 0xd2691e;
-var fogColour = 0x800000,
-    fogColour2 = 0xe76201;
-var backgroundColour = 0x660000;
+var floorColour = 0xF8F8F8,
+	floorColour2 = 0xF8F8F8,
+	floorColour3 = 0xF8F8F8,
+	wallColour = 0x000000;
+var fogColour = 0xffffff,
+    fogColour2 = 0xffffff;
+var backgroundColour = 0xffffff;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
 var instructions = document.getElementById("instructions");
@@ -62,7 +62,6 @@ defPointerUnlockElement.exitPointerLock =
 setTimeout(hideDiv, 6900);
 function hideDiv() {
 	document.getElementById("loadingScreen").style.display = "none";
-	document.getElementById("slidecontainer").style.display = "block";
 }
 
 // Remove key elements of enviroment, replace them with texturees in new style
@@ -70,7 +69,7 @@ function switchLevel(icey) {
 	// Remove floor and remove lava
 	scene.remove(floor);
 	// Remove all four walls
-	scene.remove(wall, wall2, wall3, wall4);
+	scene.remove(wall);
 	// Sets colors depending on selection
 	if (icey == true) {
 		floorColour = 0xffffff;
@@ -117,10 +116,7 @@ function switchLevel(icey) {
 		flatShading: true
 	});
 	var wall = new THREE.Mesh(wallGeometry, wallMaterial);
-	var wall2 = new THREE.Mesh(wallGeometry2, wallMaterial);
-	var wall3 = new THREE.Mesh(wallGeometry3, wallMaterial);
-	var wall4 = new THREE.Mesh(wallGeometry4, wallMaterial);
-	scene.add(wall, wall2, wall3, wall4);
+	scene.add(wall);
 }
 
 iceyBtn = document.getElementById("iceyBtn");
@@ -133,7 +129,7 @@ quitbtn.addEventListener("click", switchTrack);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 mainMenuMusic = new Audio();
-mainMenuMusic.src = "audio/menuMusic.mp3";
+mainMenuMusic.src = "audio/normalMusic.mp3";
 mainMenuMusic.loop = true;
 mainMenuMusic.play();
 
@@ -171,7 +167,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/gameplayMusic.mp3";
+		gameAudio.src = "audio/normalMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
@@ -307,9 +303,6 @@ var velocity = new THREE.Vector3();
 var direction = new THREE.Vector3();
 var floorGeometry;
 var wallGeometry;
-var wallGeometry2;
-var wallGeometry3;
-var wallGeometry4;
 
 function init() {
 	var mtlLoader = new THREE.MTLLoader();
@@ -389,36 +382,15 @@ function init() {
 
 				// Creates wall geometry
 				wallGeometry = new THREE.PlaneGeometry(300, 10000, 360, 160);
+				wallGeometry.rotateY(-Math.PI);
 				for (var i = 0, l = wallGeometry.vertices.length; i < l; i++) {
 					var vertex = wallGeometry.vertices[i];
-					vertex.x += Math.random() * 30 - 5;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 + 70;
+					vertex.x += 30 - 5;
+					vertex.y += 3 + 40;
+					vertex.z += 30 + 70;
 				}
 
-				wallGeometry2 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				wallGeometry2.rotateY(-Math.PI / 2);
-				for (var i = 0, l = wallGeometry2.vertices.length; i < l; i++) {
-					var vertex = wallGeometry2.vertices[i];
-					vertex.x += Math.random() * 30 - 95;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 5;
-				}
-				wallGeometry3 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				for (var i = 0, l = wallGeometry3.vertices.length; i < l; i++) {
-					var vertex = wallGeometry3.vertices[i];
-					vertex.x += Math.random() * 30 - 5;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 80;
-				}
-				wallGeometry4 = new THREE.PlaneGeometry(300, 10000, 360, 160);
-				wallGeometry4.rotateY(-Math.PI / 2);
-				for (var i = 0, l = wallGeometry4.vertices.length; i < l; i++) {
-					var vertex = wallGeometry4.vertices[i];
-					vertex.x += Math.random() * 30 + 70;
-					vertex.y += Math.random() * 3 + 5000;
-					vertex.z += Math.random() * 30 - 5;
-				}
+
 				// Creates floor geometry
 				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
 				floorGeometry.rotateX(-Math.PI / 2);
@@ -462,10 +434,8 @@ function init() {
 					flatShading: true
 				});
 				var wall = new THREE.Mesh(wallGeometry, wallMaterial);
-				var wall2 = new THREE.Mesh(wallGeometry2, wallMaterial);
-				var wall3 = new THREE.Mesh(wallGeometry3, wallMaterial);
-				var wall4 = new THREE.Mesh(wallGeometry4, wallMaterial);
-				scene.add(wall, wall2, wall3, wall4);
+			
+				scene.add(wall);
 
 				// Creates the jumpy rocks
 				var boxMaterial = new THREE.MeshPhongMaterial({
@@ -561,15 +531,6 @@ function init() {
 				wallOneBound = new THREE.BoxHelper(wall, 0xffff00);
 				wallOneBound.update(wall);
 				scene.add(wallOneBound);
-				wallTwoBound = new THREE.BoxHelper(wall2, 0xffff00);
-				wallTwoBound.update(wall2);
-				scene.add(wallTwoBound);
-				wallThreeBound = new THREE.BoxHelper(wall3, 0xffff00);
-				wallThreeBound.update(wall3);
-				scene.add(wallThreeBound);
-				wallFourBound = new THREE.BoxHelper(wall4, 0xffff00);
-				wallFourBound.update(wall4);
-				scene.add(wallOneBound, wallTwoBound, wallThreeBound, wallFourBound);
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
 					new THREE.Vector3(0, 1, 0),
@@ -625,18 +586,12 @@ function animate() {
 		var intersections2 = raycaster.intersectObjects(objects2);
 		var intersections3 = raycaster.intersectObjects(objects3);
 		var intersections4 = raycasterWall.intersectObject(wallOneBound);
-		var intersections5 = raycasterWall.intersectObject(wallTwoBound);
-		var intersections6 = raycasterWall.intersectObject(wallThreeBound);
-		var intersections7 = raycasterWall.intersectObject(wallFourBound);
 		var intersections8 = raycasterWall.intersectObject(floor);
 		// Detects if player has made contact with a bound box
 		var onObject = intersections.length > 0;
 		var onObject2 = intersections2.length > 0;
 		var onObject3 = intersections3.length > 0;
 		var onObject4 = intersections4.length > 0;
-		var onObject5 = intersections5.length > 0;
-		var onObject6 = intersections6.length > 0;
-		var onObject7 = intersections7.length > 0;
 		var onFloor = intersections8.length > 0;
 		var time = performance.now();
 		var delta = (time - prevTime) / 1000;
@@ -688,57 +643,8 @@ function animate() {
 					velocity.x = 200;
 				}
 			}
-			if (onObject5 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
-			if (onObject6 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
-			if (onObject7 === true) {
-				if (moveForward == true) {
-					velocity.z = 200;
-				}
-				if (moveBackward == true) {
-					velocity.z = -200;
-				}
-				if (moveRight == true) {
-					velocity.x = -200;
-				}
-				if (moveLeft == true) {
-					velocity.x = 200;
-				}
-			}
 		}
 		if (onFloor) {
-			while (playDeath == true){
-			//	pauseGameplay();
-				deathAudio = new Audio();
-				deathAudio.src = "audio/deathEffect.mp3";
-				deathAudio.play();
-				playDeath = false;
-			}
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
 			document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
