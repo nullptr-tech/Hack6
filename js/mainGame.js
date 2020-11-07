@@ -170,7 +170,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/vapourWaveMusic.mp3";
+		gameAudio.src = "audio/normalMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
