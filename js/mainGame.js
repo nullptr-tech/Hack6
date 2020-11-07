@@ -407,7 +407,7 @@ function init() {
 				}
 				// Creates geometry for bound boxes
 
-				var testBox = new THREE.BoxGeometry(1,1,1);
+				const testBox = new THREE.BoxGeometry(1,1,1);
 
 				/*var testBoxMaterials = [
 					new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("./favicon.png"), side:THREE.DoubleSide}),
@@ -420,12 +420,13 @@ function init() {
 
 				const testBoxMaterials = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 
-				var tMaterial = new THREE.MeshBasicMaterial(testBoxMaterials);
-				var testCube = new THREE.Mesh( testBox, tMaterial);
+				const tMaterial = new THREE.MeshBasicMaterial(testBoxMaterials);
+				const testCube = new THREE.Mesh( testBox, tMaterial);
 
 				scene.add(testCube);
 
-	var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
+
+				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
 
 				var boxGeometry2 = new THREE.BoxGeometry(16, 0.01, 16);
 
