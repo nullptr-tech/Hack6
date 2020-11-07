@@ -31,16 +31,16 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0xf76dc8,
-	floorColour2 = 0x05f79c,
-	floorColour3 = 0x05f79c,
-	wallColour = 0xd2691e;
-var lavaColour = 0xd2691e,
-	lavaColour2 = 0xe60000,
-	lavaColour3 = 0x661400;
-var fogColour = 0x800000,
-    fogColour2 = 0xe76201;
-var backgroundColour = 0x660000;
+var floorColour = 0xff71ce,
+	floorColour2 = 0xff71ce,
+	floorColour3 = 0xff71ce,
+	wallColour = 0xff71ce;
+var lavaColour = 0xff71ce,
+	lavaColour2 = 0xff71ce,
+	lavaColour3 = 0xff71ce;
+var fogColour = 0xff71ce,
+    fogColour2 = 0xeff71ce;
+var backgroundColour = 0xff71ce;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
 var instructions = document.getElementById("instructions");
