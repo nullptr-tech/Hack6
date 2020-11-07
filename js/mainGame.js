@@ -394,7 +394,7 @@ function init() {
 					var vertex = wallGeometry2.vertices[i];
 					vertex.x += 30 - 5;
 					vertex.y += 3 + 40;
-					vertex.z += -30 - 80;
+					vertex.z += 0 - 80;
 				}
 
 				// Creates floor geometry
