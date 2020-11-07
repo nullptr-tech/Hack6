@@ -14,7 +14,7 @@
 })();
 var wantsToPlayMusic = true;
 // Variables for bound boxes
-var wallTwoBound, wallThreeBound, wallFourBound, wallOneBound, floor, lava;
+var wallTwoBound, wallThreeBound, wallFourBound, wallOneBound, floor;
 // Menu buttons
 var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
 // Audio
@@ -31,13 +31,10 @@ var objects = [],
 var raycaster;
 var score = 0;
 // Colors for ridges of the wall and the lava
-var floorColour = 0xf76dc8,
-	floorColour2 = 0x05f79c,
-	floorColour3 = 0x05f79c,
-	wallColour = 0xdf7f391;
-var lavaColour = 0xdf7f391,
-	lavaColour2 = 0xe60000,
-	lavaColour3 = 0x661400;
+var floorColour = 0x615d5a,
+	floorColour2 = 0x803e00,
+	floorColour3 = 0x000000,
+	wallColour = 0xd2691e;
 var fogColour = 0x800000,
     fogColour2 = 0xe76201;
 var backgroundColour = 0x660000;
@@ -71,7 +68,7 @@ function hideDiv() {
 // Remove key elements of enviroment, replace them with texturees in new style
 function switchLevel(icey) {
 	// Remove floor and remove lava
-	scene.remove(floor, lava);
+	scene.remove(floor);
 	// Remove all four walls
 	scene.remove(wall, wall2, wall3, wall4);
 	// Sets colors depending on selection
@@ -80,9 +77,6 @@ function switchLevel(icey) {
 		floorColour2 = 0xd7dbff;
 		floorColour3 = 0xa8afe3;
 		wallColour = 0x9eeefa;
-		lavaColour = 0x0921d2;
-		lavaColour2 = 0x8490f0;
-		lavaColour3 = 0x3e4fcc;
 		scene.background = new THREE.Color(0x032a30);
 		scene.fog = new THREE.Fog(0x055361, 0, 200);
 		fogColour2 = 0x38a1ff;
@@ -91,9 +85,6 @@ function switchLevel(icey) {
 		floorColour2 = 0x000000;
 		floorColour3 = 0x687a68;
 		wallColour = 0x77b575;
-		lavaColour = 0x04ff00;
-		lavaColour2 = 0x38a536;
-		lavaColour3 = 0x22ce1e;
 		scene.background = new THREE.Color(0x242923);
 		scene.fog = new THREE.Fog(0x485346, 0, 200);
 		fogColour2 = 0x32e02c;
@@ -109,35 +100,16 @@ function switchLevel(icey) {
 	}
 	for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
 		var face4 = floorGeometry.faces[i];
-		face4.vertexColors[0] = new THREE.Color(lavaColour);
-		face4.vertexColors[1] = new THREE.Color(lavaColour2);
-		face4.vertexColors[2] = new THREE.Color(lavaColour3);
-	}
-	// Generate new lava geometry object
-	lavaGeometry = new THREE.PlaneGeometry(200, 200, 30, 30);
-	lavaGeometry.rotateX(-Math.PI / 2);
-	for (var i = 0, l = lavaGeometry.vertices.length; i < l; i++) {
-		var vertex2 = lavaGeometry.vertices[i];
-		vertex2.x += Math.random() * 15 - 10;
-		vertex2.y += Math.random() * 1;
-		vertex2.z += Math.random() * 15 - 10;
-	}
-	for (var i = 0, l = lavaGeometry.faces.length; i < l; i++) {
-		var face5 = lavaGeometry.faces[i];
-		face5.vertexColors[0] = new THREE.Color(floorColour);
-		face5.vertexColors[1] = new THREE.Color(floorColour2);
-		face5.vertexColors[2] = new THREE.Color(floorColour3);
+		face4.vertexColors[0] = new THREE.Color(floorColour);
+		face4.vertexColors[1] = new THREE.Color(floorColour2);
+		face4.vertexColors[2] = new THREE.Color(floorColour3);
 	}
 	var floorMaterial = new THREE.MeshBasicMaterial({
 		vertexColors: THREE.VertexColors
 	});
 	floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	var floorMaterial2 = new THREE.MeshBasicMaterial({
-		vertexColors: THREE.VertexColors
-	});
-	lava = new THREE.Mesh(lavaGeometry, floorMaterial2);
 	floor.translateY(-70);
-	scene.add(floor, lava);
+	scene.add(floor);
 	// Generate new walls
 	var wallMaterial = new THREE.MeshBasicMaterial({
 		color: wallColour,
@@ -161,7 +133,7 @@ quitbtn.addEventListener("click", switchTrack);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 mainMenuMusic = new Audio();
-mainMenuMusic.src = "audio/normalMusic.mp3";
+mainMenuMusic.src = "audio/menuMusic.mp3";
 mainMenuMusic.loop = true;
 mainMenuMusic.play();
 
@@ -199,7 +171,7 @@ function switchTrack() {
 	mainMenuMusic.muted = true;
 	if (wantsToPlayMusic) {
 		gameAudio = new Audio();
-		gameAudio.src = "audio/vapourWaveMusic.mp3";
+		gameAudio.src = "audio/gameplayMusic.mp3";
 		gameAudio.loop = true;
 		gameAudio.play();
 	}
@@ -334,7 +306,6 @@ var prevTime = performance.now();
 var velocity = new THREE.Vector3();
 var direction = new THREE.Vector3();
 var floorGeometry;
-var lavaGeometry;
 var wallGeometry;
 var wallGeometry2;
 var wallGeometry3;
@@ -459,24 +430,9 @@ function init() {
 				}
 				for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
 					var face4 = floorGeometry.faces[i];
-					face4.vertexColors[0] = new THREE.Color(lavaColour);
-					face4.vertexColors[1] = new THREE.Color(lavaColour2);
-					face4.vertexColors[2] = new THREE.Color(lavaColour3);
-				}
-				// Creates lava geometry
-				lavaGeometry = new THREE.PlaneGeometry(200, 200, 30, 30);
-				lavaGeometry.rotateX(-Math.PI / 2);
-				for (var i = 0, l = lavaGeometry.vertices.length; i < l; i++) {
-					var vertex2 = lavaGeometry.vertices[i];
-					vertex2.x += Math.random() * 15 - 10;
-					vertex2.y += Math.random() * 1;
-					vertex2.z += Math.random() * 15 - 10;
-				}
-				for (var i = 0, l = lavaGeometry.faces.length; i < l; i++) {
-					var face5 = lavaGeometry.faces[i];
-					face5.vertexColors[0] = new THREE.Color(floorColour);
-					face5.vertexColors[1] = new THREE.Color(floorColour2);
-					face5.vertexColors[2] = new THREE.Color(floorColour3);
+					face4.vertexColors[0] = new THREE.Color(floorColour);
+					face4.vertexColors[1] = new THREE.Color(floorColour2);
+					face4.vertexColors[2] = new THREE.Color(floorColour3);
 				}
 				// Creates geometry for bound boxes
 				var boxGeometry = new THREE.BoxGeometry(13, 0.01, 13);
@@ -617,12 +573,8 @@ function init() {
 					vertexColors: THREE.VertexColors
 				});
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
-				var floorMaterial2 = new THREE.MeshBasicMaterial({
-					vertexColors: THREE.VertexColors
-				});
-				lava = new THREE.Mesh(lavaGeometry, floorMaterial2);
 				floor.translateY(-70);
-				scene.add(floor, lava);
+				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio(window.devicePixelRatio);
@@ -765,15 +717,19 @@ function animate() {
 			}
 		}
 		if (onFloor) {
+			while (playDeath == true){
+			//	pauseGameplay();
+				deathAudio = new Audio();
+				deathAudio.src = "audio/deathEffect.mp3";
+				deathAudio.play();
+				playDeath = false;
+			}
 			scene.fog = new THREE.Fog(fogColour2, 0, 60);
 			document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
 		    displayScore();
 		}
-		// Makes lava go up
-		var lavaSpeedValue = document.getElementById("lavaSpeed").value / 10;
-		floorGeometry.translate(0, lavaSpeedValue, 0);
-		//---------------------------------------------------------//
+
 		controls.getObject().translateX(velocity.x * delta);
 		controls.getObject().translateY(velocity.y * delta);
 		controls.getObject().translateZ(velocity.z * delta);
