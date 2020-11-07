@@ -503,6 +503,12 @@ function init() {
 				var temp = [
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_3.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image__4.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
+					"https://github.com/nullptr-tech/Hack6/blob/main/image_8.jpg?raw=true"
 				]	
 					
 				for(var i=0; i<temp.length;i++){
