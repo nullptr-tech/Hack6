@@ -184,9 +184,10 @@ function changeTheme() {
 	scene.add(skyBox)
 	scene.add(enironmentGrid);
 	scene.add(enironmentGrid2);
-	// Sets colors depending on selection
+	//sets music depending on selection
 	mainMenuMusic.src = "audio/vapourWaveMusic.mp3"
 	mainMenuMusic.play();
+	// Sets colors depending on selection
 	scene.background = new THREE.Color(0x000000);
 	scene.fog = new THREE.Fog(0x000000, 0, 400);
 	fogColour =0x000000;
@@ -457,6 +458,7 @@ function init() {
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide})
 				];
+
 				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
 				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
 				skyBox = new THREE.Mesh(geo, skyBoxMaterial);
@@ -535,6 +537,8 @@ function init() {
 				var floorMaterial = new THREE.MeshBasicMaterial({
 					vertexColors: THREE.VertexColors
 				});
+
+				
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
 
 				const size = 200;
