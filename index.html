@@ -50,32 +50,40 @@
 				<source src="loading.mp4" type="video/mp4">
 			</video>
 		</div>-->
-	<div id="menuItems">
-	<div class="custom-control custom-switch" id="switch">
-		<input type="checkbox" class="custom-control-input" id="customSwitch1">
-		<label class="custom-control-label" for="customSwitch1">Secret Switch</label>
-	</div>
-		<img src="art_gallery.png" alt="volcano" height="100", width="100" class="menuImage">
-		<div id="muteBtn"> 
-			
-		</div>
-		<div class="button">
-			<button type="button" class="btn btn-light btn-sm btn-block" id="playBtn">Enter virtual gallery</button>
-		</div>
-		<div class="button">
-			<button type="button" class="btn btn-light btn-sm btn-block" id="helpBtn">Help</button>
-		</div>
-	</div>
 		
-		<script src="js/mainGame.js"></script>
+		<div class="custom-control custom-switch" id="switch">
+			<input type="checkbox" class="custom-control-input" id="customSwitch1">
+			<label class="custom-control-label" for="customSwitch1">Secret Switch</label>
+		</div>
 
-	<div id="scoreContainer">
+		<div id="menuItems" class="container justify-content-center align-items-center">		
+
+			<div class = "pb-5 pt-10">
+				<blockquote class="blockquote text-center ">
+					<img src="Title.png" alt="volcano">
+					<footer class="blockquote-footer">A virtual 3d gallary using the phsics library three.js and powered by cockroachDB to store the images.</footer>
+				</blockquote>
+			</div>
+
+			<div class = "pt-10">
+				<div class="button">
+					<button type="button" class="btn btn-light btn-sm btn-block" id="playBtn">Enter virtual gallery</button>
+				</div>
+				<div class="button">
+					<button type="button" class="btn btn-light btn-sm btn-block" id="helpBtn">Help</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="muteBtn"></div>
+		<script src="js/mainGame.js"></script>
+		<div id="scoreContainer">
+		</div>
+		<div id="scoreDisplay">
+		</div>
+		<div id="score">
+			<p id="scoreText"></p>
+		</div>
 	</div>
-	<div id="scoreDisplay">
-	</div>
-	<div id="score">
-		<p id="scoreText"></p>
-	</div>
-</div>
 </body>
 </html>
