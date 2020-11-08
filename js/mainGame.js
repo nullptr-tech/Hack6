@@ -13,6 +13,7 @@
 	document.head.appendChild(script);
 })();
 var wantsToPlayMusic = true;
+var themeChange = false;
 // Variables for bound boxes
 var  floor;
 // Menu buttons
@@ -170,7 +171,7 @@ function createAGrid(opts) {
   }
 
 // Remove key elements of enviroment, replace them with texturees in new style
-function switchLevel(icey) {
+function changeTheme(icey) {
 	// Remove floor and remove lava
 	scene.remove(floor);
 	// Remove all four walls
@@ -279,9 +280,10 @@ document.addEventListener("click", e => {
 			defPointerLockElement.requestPointerLock();
 			menuScreen.style.display = "none";
 			break;
-		case "slectLevelBtn":
-			selectMenu.style.display = "block";
+		case "customSwitch1":
 			menuScreen.style.display = "none";
+			defPointerLockElement.requestPointerLock();
+			changeTheme(true);
 			break;
 
 		case "iceyBtn":
