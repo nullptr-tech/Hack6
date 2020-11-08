@@ -17,7 +17,7 @@ var themeChange = false;
 // Variables for bound boxes
 var  floor;
 // Menu buttons
-var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn;
+var audio, playbtn, music, pausebtn, slectLevelBtn, iceyBtn, chemicalBtn, vapeOn=false;
 // Audio
 var gameAudio, mainMenuMusic, deathAudio, playDeath, mutebtn;
 // Camera,controls and scene objects
@@ -179,14 +179,64 @@ function createAGrid(opts) {
 
 // Remove key elements of enviroment, replace them with texturees in new style
 function changeTheme() {
+	scene.remove(...array);
 	scene.add(skyBox)
 	scene.add(enironmentGrid);
 	scene.add(enironmentGrid2);
 	// Sets colors depending on selection
 	scene.background = new THREE.Color(0x000000);
-	scene.fog = new THREE.Fog(0x000000, 0, 400);
-	fogColour =0x000000;
-	fogColour2 = 0x000000;
+	scene.fog = new THREE.Fog(0x4ed6f3, 0, 750);
+	vapeOn=true;
+	var temp = [
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_3.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image__4.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_8.jpg"
+	]	
+	for(var i=0; i<temp.length;i++){
+		// Creates geometry for bound boxes
+		testBoxMaterials = [
+			new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(temp[i]), side:THREE.DoubleSide}),
+		];
+		testBoxMaterials2 = [
+			new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://thumbs.dreamstime.com/b/vaporwave-abstract-background-retro-computer-interface-worktable-checkered-floor-wallpaper-vaporwave-abstract-background-191420437.jpg"), side:THREE.DoubleSide}),
+		];
+
+		if (i%2 == 0){
+			for(var q=0;q<2;q++){
+				wallGeometry = new THREE.PlaneGeometry(q==0?100:120, q==0?100:120);
+				wallGeometry.rotateY(-Math.PI);
+				for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
+					var vertex = wallGeometry.vertices[z];
+					vertex.x += moveImage - 5;
+					vertex.y += 3 + 40;
+					vertex.z += q==0? 90 + 60 : 91 + 60;
+				}
+				wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
+				array.push(wall);
+			}
+		}
+		else{
+			for(var w=0;w<2;w++){
+				wallGeometry = new THREE.PlaneGeometry(w==0?100:130, w==0?100:130);
+				for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
+					var vertex = wallGeometry.vertices[x];
+					vertex.x += moveImage - 5;
+					vertex.y += 3 + 40;
+					vertex.z += w==0?-70-80:-71 - 80;
+				}
+				wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
+				array.push(wall);
+			}
+			moveImage += 150;
+		}
+	}
+	
+	scene.add(...array);
 }
 
 iceyBtn = document.getElementById("iceyBtn");
@@ -247,11 +297,65 @@ function pauseGameplay() {
 	gameAudio.muted = true;
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
+function addNormal(){
+	scene.remove(...array);
+	var temp = [
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_3.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image__4.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
+		"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_8.jpg"
+	]	
+		
+		for(var i=0; i<temp.length;i++){
+			// Creates geometry for bound boxes
+			testBoxMaterials = [
+				new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(temp[i]), side:THREE.DoubleSide}),
+			];
+			testBoxMaterials2 = [
+				new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
+			];
 
+			if (i%2 == 0){
+				for(var q=0;q<2;q++){
+					wallGeometry = new THREE.PlaneGeometry(q==0?100:120, q==0?100:120);
+					wallGeometry.rotateY(-Math.PI);
+					for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
+						var vertex = wallGeometry.vertices[z];
+						vertex.x += moveImage - 5;
+						vertex.y += 3 + 40;
+						vertex.z += q==0? 90 + 60 : 91 + 60;
+					}
+					wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
+					array.push(wall);
+				}
+			}
+			else{
+				for(var w=0;w<2;w++){
+					wallGeometry = new THREE.PlaneGeometry(w==0?100:130, w==0?100:130);
+					for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
+						var vertex = wallGeometry.vertices[x];
+						vertex.x += moveImage - 5;
+						vertex.y += 3 + 40;
+						vertex.z += w==0?-70-80:-71 - 80;
+					}
+					wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
+					array.push(wall);
+				}
+				moveImage += 150;
+			}
+		}
+		// Creates wall geometry
+		scene.add(...array);
+}
 // Event listener for menu screen
 document.addEventListener("click", e => {
 	switch (e.target.id) {
 		case "playBtn":
+			addNormal();
 			defPointerLockElement.requestPointerLock();
 			menuScreen.style.display = "none";
 			break;
@@ -377,11 +481,11 @@ function init() {
 					75,
 					window.innerWidth / window.innerHeight,
 					1,
-					350
+					1200
 				);
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color(backgroundColour);
-				scene.fog = new THREE.Fog(fogColour, 0, 400);
+				// scene.fog = new THREE.Fog(fogColour, 0, 400);
 				var light = new THREE.HemisphereLight(0xeeeeff, 0x53535f, 0.75);
 				light.position.set(0.5, 1, 0.75);
 				scene.add(light);
@@ -451,65 +555,12 @@ function init() {
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide})
 				];
-				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
+				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 1)
 				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
 				skyBox = new THREE.Mesh(geo, skyBoxMaterial);
 				scene.remove(skyBox);
 				scene.add(ambientLight);
 				//-----------------------------------------------------------------------------------------------------
-		
-				// Creates wall geometry
-				var temp = [
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_3.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image__4.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
-					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_8.jpg"
-				]	
-					
-				for(var i=0; i<temp.length;i++){
-					// Creates geometry for bound boxes
-					testBoxMaterials = [
-						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(temp[i]), side:THREE.DoubleSide}),
-					];
-					testBoxMaterials2 = [
-						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
-					];
-
-					if (i%2 == 0){
-						for(var q=0;q<2;q++){
-							wallGeometry = new THREE.PlaneGeometry(q==0?100:120, q==0?100:120);
-							wallGeometry.rotateY(-Math.PI);
-							for (var z = 0, l = wallGeometry.vertices.length; z < l; z++) {
-								var vertex = wallGeometry.vertices[z];
-								vertex.x += moveImage - 5;
-								vertex.y += 3 + 40;
-								vertex.z += q==0? 90 + 60 : 91 + 60;
-							}
-							wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
-							array.push(wall);
-						}
-					}
-					else{
-						for(var w=0;w<2;w++){
-							wallGeometry = new THREE.PlaneGeometry(w==0?100:130, w==0?100:130);
-							for (var x = 0, l = wallGeometry.vertices.length; x < l; x++) {
-								var vertex = wallGeometry.vertices[x];
-								vertex.x += moveImage - 5;
-								vertex.y += 3 + 40;
-								vertex.z += w==0?-70-80:-71 - 80;
-							}
-							wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
-							array.push(wall);
-						}
-						moveImage += 150;
-					}
-				}
-				
-				scene.add(...array);
 
 				// // Creates bound boxes for the wall
 				raycaster = new THREE.Raycaster(
@@ -593,7 +644,7 @@ function animate() {
 			if (moveLeft || moveRight) velocity.x -= direction.x * 900.0 * delta;
 		}
 		if (onFloor) {
-			scene.fog = new THREE.Fog(fogColour2, 0, 60);
+			scene.fog = new THREE.Fog(fogColour2, 0, 400);
 		//	document.getElementById("scoreText").style.display = "none";
 			gamePause = true;
 		    displayScore();
