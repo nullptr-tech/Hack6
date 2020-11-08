@@ -29,9 +29,9 @@ var raycaster;
 var testBoxMaterials;
 var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
-var fogColour = 0x000000,
-    fogColour2 = 0x000000;
-var backgroundColour = 0x000000;
+var fogColour = 0xffffff,
+    fogColour2 = 0xffffff;
+var backgroundColour = 0xffffff;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
 var instructions = document.getElementById("instructions");
@@ -179,13 +179,14 @@ function createAGrid(opts) {
 
 // Remove key elements of enviroment, replace them with texturees in new style
 function changeTheme() {
-	scene.remove(skyBox);
-	scene.remove(enironmentGrid);
-	scene.remove(enironmentGrid2);
+	scene.add(skyBox)
+	scene.add(enironmentGrid);
+	scene.add(enironmentGrid2);
 	// Sets colors depending on selection
-	scene.background = new THREE.Color(0xffffff);
-	scene.fog = new THREE.Fog(0xffffff, 0, 400);
-	fogColour2 = 0xffffff;
+	scene.background = new THREE.Color(0x000000);
+	scene.fog = new THREE.Fog(0x000000, 0, 400);
+	fogColour =0x000000;
+	fogColour2 = 0x000000;
 }
 
 iceyBtn = document.getElementById("iceyBtn");
@@ -453,7 +454,7 @@ function init() {
 				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
 				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
 				skyBox = new THREE.Mesh(geo, skyBoxMaterial);
-				scene.add(skyBox);
+				scene.remove(skyBox);
 				scene.add(ambientLight);
 				//-----------------------------------------------------------------------------------------------------
 		
@@ -486,7 +487,7 @@ function init() {
 								var vertex = wallGeometry.vertices[z];
 								vertex.x += moveImage - 5;
 								vertex.y += 3 + 40;
-								vertex.z += q==0? 30 + 60 : 31 + 60;
+								vertex.z += q==0? 90 + 60 : 91 + 60;
 							}
 							wall = new THREE.Mesh(wallGeometry, q==0?testBoxMaterials:testBoxMaterials2);
 							array.push(wall);
@@ -499,7 +500,7 @@ function init() {
 								var vertex = wallGeometry.vertices[x];
 								vertex.x += moveImage - 5;
 								vertex.y += 3 + 40;
-								vertex.z += w==0?-10-80:-11 - 80;
+								vertex.z += w==0?-70-80:-71 - 80;
 							}
 							wall = new THREE.Mesh(wallGeometry, w==0?testBoxMaterials:testBoxMaterials2);
 							array.push(wall);
@@ -536,8 +537,8 @@ function init() {
 				// const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
 				enironmentGrid = createAGrid();
 				enironmentGrid2 = createAGrid2()
-				scene.add(enironmentGrid);
-				scene.add(enironmentGrid2);
+				scene.remove(enironmentGrid);
+				scene.remove(enironmentGrid2);
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio(window.devicePixelRatio);
@@ -609,13 +610,8 @@ function animate() {
 
 		prevTime = time;
 	}
-	currentScore = Math.round(camera.getWorldPosition().y - 10);
-	if (currentScore > score) {
-		score = currentScore;
-	}
 
 	//document.getElementById("scoreText").innerHTML = "Gallery's Image Count: ".concat(score);
-
 
 	renderer.render(scene, camera);
 }
