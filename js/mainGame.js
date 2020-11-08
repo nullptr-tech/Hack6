@@ -28,12 +28,9 @@ var raycaster;
 var testBoxMaterials;
 var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
-var floorColour = 0xF8F8F8,
-	floorColour2 = 0xF8F8F8,
-	floorColour3 = 0xF8F8F8,
 	wallColour = 0x000000;
-var fogColour = 0xffffff,
-    fogColour2 = 0xffffff;
+var fogColour = 0x000000,
+    fogColour2 = 0x000000;
 var backgroundColour = 0x000000;
 // Elements of the menu screen
 var blocker = document.getElementById("blocker");
@@ -189,17 +186,11 @@ function switchLevel(icey) {
 	scene.remove(wall);
 	// Sets colors depending on selection
 	if (icey == true) {
-		floorColour = 0xffffff;
-		floorColour2 = 0xd7dbff;
-		floorColour3 = 0xa8afe3;
 		wallColour = 0x9eeefa;
 		scene.background = new THREE.Color(0x032a30);
 		scene.fog = new THREE.Fog(0x055361, 0, 200);
 		fogColour2 = 0x38a1ff;
 	} else {
-		floorColour = 0xd6dbd6;
-		floorColour2 = 0x000000;
-		floorColour3 = 0x687a68;
 		wallColour = 0x77b575;
 		scene.background = new THREE.Color(0x242923);
 		scene.fog = new THREE.Fog(0x485346, 0, 200);
@@ -214,12 +205,7 @@ function switchLevel(icey) {
 		vertex.y += Math.random() * 5;
 		vertex.z += Math.random() * 15 - 10;
 	}
-	for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
-		var face4 = floorGeometry.faces[i];
-		face4.vertexColors[0] = new THREE.Color(floorColour);
-		face4.vertexColors[1] = new THREE.Color(floorColour2);
-		face4.vertexColors[2] = new THREE.Color(floorColour3);
-	}
+
 	var floorMaterial = new THREE.MeshBasicMaterial({
 		vertexColors: THREE.VertexColors
 	});
@@ -497,13 +483,48 @@ function init() {
 
 				//----------------------------------------------------------------//
 				// floor and cubes//
+
+
 				//----------------------------------------------------------------//
-				// Creates wall geometry
+				// SkyBox
+				var geo = new THREE.CubeGeometry(1200, 500, 500); //skybox size change to make bigger 
+				var skyBoxMaterials = 
+				[
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("skybox_sky.jpg"), side: THREE.DoubleSide}),//sky image
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),//floor image
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide})
+				];
+				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
+				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
+				var skyBox = new THREE.Mesh(geo, skyBoxMaterial);
+				scene.add(skyBox);
+				scene.add(ambientLight);
+				//-----------------------------------------------------------------------------------------------------
 				
-				for(var i=0; i<5;i++){
+				
+				
+				
+				
+				
+				// Creates wall geometry
+				var temp = [
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_2.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_3.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image__4.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_5.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/imagea_6.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_7.jpg",
+					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_8.jpg"
+				]	
+					
+				for(var i=0; i<temp.length;i++){
 					// Creates geometry for bound boxes
 					testBoxMaterials = [
-						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load("https://knowpathology.com.au/app/uploads/2018/07/Happy-Test-Screen-01.png"), side:THREE.DoubleSide}),
+						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(temp[i]), side:THREE.DoubleSide}),
 					];
 					testBoxMaterials2 = [
 						new THREE.MeshBasicMaterial({map: new THREE.TextureLoader( ).load(""), side:THREE.DoubleSide}),
@@ -541,22 +562,6 @@ function init() {
 				
 				scene.add(...array);
 
-				// Creates floor geometry
-				floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
-				floorGeometry.rotateX(-Math.PI / 2);
-				for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
-					var vertex = floorGeometry.vertices[i];
-					vertex.x += Math.random() * 15 - 10;
-					vertex.y += Math.random() * 5;
-					vertex.z += Math.random() * 15 - 10;
-				}
-				for (var i = 0, l = floorGeometry.faces.length; i < l; i++) {
-					var face4 = floorGeometry.faces[i];
-					face4.vertexColors[0] = new THREE.Color(floorColour);
-					face4.vertexColors[1] = new THREE.Color(floorColour2);
-					face4.vertexColors[2] = new THREE.Color(floorColour3);
-				}
-
 				// // Creates bound boxes for the wall
 				raycaster = new THREE.Raycaster(
 					new THREE.Vector3(),
@@ -576,7 +581,6 @@ function init() {
 					vertexColors: THREE.VertexColors
 				});
 				floor = new THREE.Mesh(floorGeometry, floorMaterial);
-				floor.translateY(-70);
 
 				const size = 200;
 				const divisions = 25;
@@ -584,7 +588,6 @@ function init() {
 				// const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
 				scene.add(createAGrid());
 				scene.add(createAGrid2());
-				scene.add(floor);
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio(window.devicePixelRatio);
