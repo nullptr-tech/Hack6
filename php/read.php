@@ -1,7 +1,8 @@
 <?php
-    $dbh = new PDO('pgsql:host=localhost;port=26257;dbname=bank;sslmode=require;sslrootcert=certs/ca.crt;sslkey=certs/client.maxroach.key;sslcert=certs/client.maxroach.crt',
-    'maxroach', null, array(
-      PDO::ATTR_ERRMODE          => PDO::ERRMODE_EXCEPTION,
+    use PDO;
+    $dbh = new PDO('pgsql:host=localhost;port=5432;dbname=bank;sslmode=allow;sslrootcert=certs/ca.crt;sslkey=certs/client.teamnull.key;sslcert=certs/teamnull-hacksheff6-ca.crt',
+    'teamnull', null, array(
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_EMULATE_PREPARES => true,
       PDO::ATTR_PERSISTENT => true
     ));
