@@ -14,6 +14,8 @@
 })();
 var wantsToPlayMusic = true;
 var themeChange = false;
+var vaporMusic = false;
+mainMenuMusic = new Audio();
 // Variables for bound boxes
 var  floor;
 // Menu buttons
@@ -184,6 +186,8 @@ function changeTheme() {
 	scene.add(enironmentGrid);
 	scene.add(enironmentGrid2);
 	// Sets colors depending on selection
+	mainMenuMusic.src = "audio/vapourWaveMusic.mp3"
+	mainMenuMusic.play();
 	scene.background = new THREE.Color(0x000000);
 	scene.fog = new THREE.Fog(0x4ed6f3, 0, 750);
 	vapeOn=true;
@@ -248,8 +252,9 @@ quitbtn.addEventListener("click", switchTrack);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-mainMenuMusic = new Audio();
-mainMenuMusic.src = "audio/normalMusic.mp3";
+
+ mainMenuMusic.src = "audio/normalMusic.mp3";
+//mainMenuMusic.src = "audio/normalMusic.mp3";
 mainMenuMusic.loop = true;
 mainMenuMusic.play();
 
@@ -546,12 +551,13 @@ function init() {
 				//----------------------------------------------------------------//
 				// SkyBox
 				var geo = new THREE.CubeGeometry(1200, 500, 500); //skybox size change to make bigger 
+				geo.translate ( 400, 100, 0 );
 				var skyBoxMaterials = 
 				[
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("skybox_sky.jpg"), side: THREE.DoubleSide}),//sky image
-					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),//floor image
+					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(""), side: THREE.DoubleSide}),//floor image
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide})
 				];
