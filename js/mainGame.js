@@ -477,7 +477,7 @@ function init() {
 
 				//----------------------------------------------------------------//
 				// SkyBox
-				var geo = new THREE.CubeGeometry(500,500,500); //skybox size change to make bigger 
+				var geo = new THREE.CubeGeometry(1200,500,500); //skybox size change to make bigger 
 				var skyBoxMaterials = 
 				[
 					new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load("test_img.jpg"), side: THREE.DoubleSide}),
