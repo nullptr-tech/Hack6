@@ -68,39 +68,39 @@ function myTimer() {
 }
 function createAGrid(opts) {
 	var config = opts || {
-	  height: 5000,
-	  width: 5000,
-	  linesHeight: 600,
-	  linesWidth: 600,
-	  color: theMightColorArary[floorColorIndex]
-	};
-  
-	var material = new THREE.LineBasicMaterial({
-	  color: config.color,
-	  opacity: 0.2,
-	  linewidth: 20,
-	});
-  
-	var gridObject = new THREE.Object3D(),
-	  gridGeo = new THREE.Geometry(),
-	  stepw = 2 * config.width / config.linesWidth,
-	  steph = 2 * config.height / config.linGeometryesHeight;
-  
-	//width
-	for (var i = -config.width; i <= config.width; i += stepw) {
-	  gridGeo.vertices.push(new THREE.Vector3(i, -25, -config.height));
-	  gridGeo.vertices.push(new THREE.Vector3(i, -25, config.height));
-	}
-	//height
-	for (var i = -config.height; i <= config.height; i += steph) {
-	  gridGeo.vertices.push(new THREE.Vector3(-config.width,-25, i));
-	  gridGeo.vertices.push(new THREE.Vector3(config.width,-25, i));
-	}
-  
-	var line = new THREE.LineSegments(gridGeo, material);
-	gridObject.add(line);
-  
-	return gridObject;
+		height: 5000,
+		width: 5000,
+		linesHeight: 450,
+		linesWidth: 450,
+		color: 0x9F00FF
+	  };
+	
+	  var material = new THREE.LineBasicMaterial({
+		color: config.color,
+		opacity: 0.2,
+	  });
+	
+	  var gridObject = new THREE.Object3D(),
+		gridGeo = new THREE.Geometry(),
+		stepw = 2 * config.width / config.linesWidth,
+		steph = 2 * config.height / config.linesHeight;
+	
+	  //width
+	  for (var i = -config.width; i <= config.width; i += stepw) {
+		gridGeo.vertices.push(new THREE.Vector3(i, -25, -config.height));
+		gridGeo.vertices.push(new THREE.Vector3(i, -25, config.height));
+	
+	  }
+	  //height
+	  for (var i = -config.height; i <= config.height; i += steph) {
+		gridGeo.vertices.push(new THREE.Vector3( -config.width,-25, i));
+		gridGeo.vertices.push(new THREE.Vector3( config.width,-25, i));
+	  }
+	
+	  var line = new THREE.LineSegments(gridGeo, material);
+	  gridObject.add(line);
+	
+	  return gridObject;
   }
 
   function createAGrid2(opts) {
