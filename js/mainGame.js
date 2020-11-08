@@ -63,7 +63,6 @@ var floorColorIndex = 0;
 var theMightColorArary = [0x9F00FF, 0xFF71CE, 0x01CDFE,0xFFFB96,0x05FFA1];	
 
 function myTimer() {
-	console.log("Annoyuu");
   if(floorColorIndex > theMightColorArary.length)  floorColorIndex = 0;
   else floorColorIndex++; 
 }
@@ -83,9 +82,9 @@ function createAGrid(opts) {
 	});
   
 	var gridObject = new THREE.Object3D(),
-	  gridGeo = new THREE.BufferGeometry(),
+	  gridGeo = new THREE.Geometry(),
 	  stepw = 2 * config.width / config.linesWidth,
-	  steph = 2 * config.height / config.linesHeight;
+	  steph = 2 * config.height / config.linGeometryesHeight;
   
 	//width
 	for (var i = -config.width; i <= config.width; i += stepw) {
