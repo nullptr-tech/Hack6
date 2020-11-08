@@ -59,13 +59,21 @@ function hideDiv() {
 	document.getElementById("loadingScreen").style.display = "none";
 }
 
+
+var floorColorIndex = 0;
+var theMightColorArary = [0x9F00FF, 0xFF71CE, 0x01CDFE,0xFFFB96,0x05FFA1];	
+
+function myTimer() {
+  if(floorColorIndex > theMightColorArary.length)  floorColorIndex = 0;
+  else floorColorIndex++; 
+}
 function createAGrid(opts) {
 	var config = opts || {
 	  height: 5000,
 	  width: 5000,
-	  linesHeight: 450,
-	  linesWidth: 450,
-	  color: 0x9F00FF
+	  linesHeight: 600,
+	  linesWidth: 600,
+	  color: theMightColorArary[floorColorIndex]
 	};
   
 	var material = new THREE.LineBasicMaterial({
@@ -77,17 +85,17 @@ function createAGrid(opts) {
 	var gridObject = new THREE.Object3D(),
 	  gridGeo = new THREE.Geometry(),
 	  stepw = 2 * config.width / config.linesWidth,
-	  steph = 2 * config.height / config.linesHeight;
+	  steph = 2 * config.height / config.linGeometryesHeight;
   
 	//width
 	for (var i = -config.width; i <= config.width; i += stepw) {
-	  gridGeo.vertices.push(new THREE.Vector3(i, -9, -config.height));
-	  gridGeo.vertices.push(new THREE.Vector3(i, -9, config.height));
+	  gridGeo.vertices.push(new THREE.Vector3(i, -25, -config.height));
+	  gridGeo.vertices.push(new THREE.Vector3(i, -25, config.height));
 	}
 	//height
 	for (var i = -config.height; i <= config.height; i += steph) {
-	  gridGeo.vertices.push(new THREE.Vector3(-config.width,-9, i));
-	  gridGeo.vertices.push(new THREE.Vector3(config.width,-9, i));
+	  gridGeo.vertices.push(new THREE.Vector3(-config.width,-25, i));
+	  gridGeo.vertices.push(new THREE.Vector3(config.width,-25, i));
 	}
   
 	var line = new THREE.LineSegments(gridGeo, material);
@@ -405,6 +413,7 @@ function init() {
 	var mtlLoader = new THREE.MTLLoader();
 	// Entire initialisation is ran inside callback, to prevent javascript not loading RockObject
 	mtlLoader.load("models/Rock1.mtl", function(materials) {
+		setInterval(myTimer, 2000);
 		materials.preload();
 		var objLoader = new THREE.OBJLoader();
 		objLoader.setMaterials(materials);
