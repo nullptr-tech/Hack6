@@ -23,13 +23,12 @@ var gameAudio, mainMenuMusic, deathAudio, playDeath, mutebtn;
 // Camera,controls and scene objects
 var camera, scene, renderer, controls;
 // Whether or not the game is paused
-var gamePause;
+var gamePause, skyBox,enironmentGrid,enironmentGrid2 ;
 var array=[], wall;
 var raycaster;
 var testBoxMaterials;
 var score = 0,moveImage = 5;
 // Colors for ridges of the wall and the lava
-	wallColour = 0x000000;
 var fogColour = 0x000000,
     fogColour2 = 0x000000;
 var backgroundColour = 0x000000;
@@ -179,47 +178,14 @@ function createAGrid(opts) {
   }
 
 // Remove key elements of enviroment, replace them with texturees in new style
-function changeTheme(icey) {
-	// Remove floor and remove lava
-	scene.remove(floor);
-	// Remove all four walls
-	scene.remove(wall);
+function changeTheme() {
+	scene.remove(skyBox);
+	scene.remove(enironmentGrid);
+	scene.remove(enironmentGrid2);
 	// Sets colors depending on selection
-	if (icey == true) {
-		wallColour = 0x9eeefa;
-		scene.background = new THREE.Color(0x032a30);
-		scene.fog = new THREE.Fog(0x055361, 0, 200);
-		fogColour2 = 0x38a1ff;
-	} else {
-		wallColour = 0x77b575;
-		scene.background = new THREE.Color(0x242923);
-		scene.fog = new THREE.Fog(0x485346, 0, 200);
-		fogColour2 = 0x32e02c;
-	}
-	// Generate new floor geometry object
-	floorGeometry = new THREE.PlaneGeometry(200, 200, 70, 70);
-	floorGeometry.rotateX(-Math.PI / 2);
-	for (var i = 0, l = floorGeometry.vertices.length; i < l; i++) {
-		var vertex = floorGeometry.vertices[i];
-		vertex.x += Math.random() * 15 - 10;
-		vertex.y += Math.random() * 5;
-		vertex.z += Math.random() * 15 - 10;
-	}
-
-	var floorMaterial = new THREE.MeshBasicMaterial({
-		vertexColors: THREE.VertexColors
-	});
-	floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	floor.translateY(-70);
-	scene.add(floor);
-	// Generate new walls
-	var wallMaterial = new THREE.MeshBasicMaterial({
-		color: wallColour,
-		specular: 0xffffff,
-		flatShading: true
-	});
-	var wall = new THREE.Mesh(wallGeometry, wallMaterial);
-	scene.add(wall);
+	scene.background = new THREE.Color(0xffffff);
+	scene.fog = new THREE.Fog(0xffffff, 0, 400);
+	fogColour2 = 0xffffff;
 }
 
 iceyBtn = document.getElementById("iceyBtn");
@@ -291,21 +257,8 @@ document.addEventListener("click", e => {
 		case "customSwitch1":
 			menuScreen.style.display = "none";
 			defPointerLockElement.requestPointerLock();
-			changeTheme(true);
+			changeTheme();
 			break;
-
-		case "iceyBtn":
-			defPointerLockElement.requestPointerLock();
-			selectMenu.style.display = "none";
-			switchLevel(true);
-			break;
-
-		case "chemicalBtn":
-			defPointerLockElement.requestPointerLock();
-			selectMenu.style.display = "none";
-			switchLevel(false);
-			break;
-
 		case "helpBtn":
 			instructions.style.display = "block";
 			menuScreen.style.display = "none";
@@ -317,7 +270,6 @@ document.addEventListener("click", e => {
 			blocker.style.display = "block";
 			pauseScreen.style.display = "none";
             break;
-
 		case "continueBtn":
 			defPointerLockElement.requestPointerLock();
 			break;
@@ -500,16 +452,11 @@ function init() {
 				];
 				var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.3)
 				var skyBoxMaterial = new THREE.MeshFaceMaterial(skyBoxMaterials);
-				var skyBox = new THREE.Mesh(geo, skyBoxMaterial);
+				skyBox = new THREE.Mesh(geo, skyBoxMaterial);
 				scene.add(skyBox);
 				scene.add(ambientLight);
 				//-----------------------------------------------------------------------------------------------------
-				
-				
-				
-				
-				
-				
+		
 				// Creates wall geometry
 				var temp = [
 					"https://raw.githubusercontent.com/nullptr-tech/Hack6/main/image_1.png",
@@ -587,8 +534,10 @@ function init() {
 				const divisions = 25;
 
 				// const gridHelper = new THREE.GridHelper( size, divisions ,'#9F00FF','#9F00FF');
-				scene.add(createAGrid());
-				scene.add(createAGrid2());
+				enironmentGrid = createAGrid();
+				enironmentGrid2 = createAGrid2()
+				scene.add(enironmentGrid);
+				scene.add(enironmentGrid2);
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio(window.devicePixelRatio);
